@@ -1,7 +1,7 @@
 #ifndef MCP23017_H
 #define MCP23017_H
 
-#include<Wire.h>   //requires wire library 
+#include <Wire.h>
 #if ARDUINO < 100
 #include <WProgram.h>
 #else
@@ -34,7 +34,6 @@ class MCP23017{
 	public:
 		MCP23017(int, byte); // address, resetPin
 		void Init();
-		void Init(int,int);
 		void setI2C_Address(int);  //Address = 1 0 0 A2 A1 A0
 		void setResetPin(byte);	   //Reset Pin des Arduino
 		void setIoDir(byte, PORT);  //sets complete IODIR 

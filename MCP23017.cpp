@@ -4,7 +4,6 @@ MCP23017::MCP23017(int addr, byte rp) // I2C Adresse und Reset Pin (Arduino)
 	: I2C_Address(addr), resetPin(rp){}
 
 void MCP23017::Init(){
-	Wire.begin(0,0);
 	pinMode(resetPin, OUTPUT); 
 	digitalWrite(resetPin,LOW);
 	delay(10);
@@ -21,24 +20,6 @@ void MCP23017::Init(){
 	setDefVal(B00000000, B);
 };
 	
-	void MCP23017::Init(int sdaPin, int sclPin){
-	Wire.begin(sdaPin, sclPin);
-	pinMode(resetPin, OUTPUT); 
-	digitalWrite(resetPin,LOW);
-	delay(10);
-	digitalWrite(resetPin, HIGH);
-	setGpioOut(B00000000, A);
-	setGpioOut(B00000000,B);
-	setGpIntEn(B00000000,A);
-	setGpIntEn(B00000000,B);
-	setIoCon(B00000000, A);
-	setIoCon(B00000000, B);
-	setIntCon(B00000000, A);
-	setIntCon(B00000000, B);
-	setDefVal(B00000000, A);
-	setDefVal(B00000000, B);
-};
-
 void MCP23017::setI2C_Address(int addr){
 	I2C_Address = addr;
 }
