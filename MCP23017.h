@@ -26,6 +26,10 @@
 #define IPOLA 0x02	  //Input Polarity of GPIO Pin --> 1: GPIO Register bit is opposite 
 #define GPIOA 0x12    //GPIO Register: 0 = LOW, 1 = HIGH
 #define GPIOB 0x13
+#define INTPOL 1	// Polarity Bit for Interrupt in IOCON
+#define MIRROR 6	// Mirror bit; legt die Interruptpins zusammen
+#define GPPUA 0x0C	// Pull
+#define GPPUB 0x0D
 
 enum PORT {A, B};
 enum STATE {OFF, ON};
@@ -37,23 +41,29 @@ class MCP23017{
 		void setI2C_Address(int);  //Address = 1 0 0 A2 A1 A0
 		void setResetPin(byte);	   //Reset Pin des Arduino
 		void setIoDir(byte, PORT);  //sets complete IODIR 
-		void setGpioOut(byte, PORT);    //sets complete GPIO A or B, "OUT and HIGH"
-		void setGpioOut(byte, byte, PORT, PORT); // sets GPIOA and GPIOB
-		void setGpioInOut(byte, byte, PORT); // sets complete IODIR A or B and GPIO A or B 
+		void switchPort(byte, PORT);    //sets complete GPIO A or B, "OUT and HIGH"
+		void switchPort(byte, byte, PORT, PORT); // sets GPIOA and GPIOB
+		void setPort(byte, byte, PORT); // sets complete IODIR A or B and GPIO A or B 
 		void setGpIntEn(byte, PORT);  //sets complete GPINTENA
 		void setIoCon(byte, PORT);   //sets complete IOCON
 		void setIntCon(byte, PORT);   // sets complete INTCON
 		void setDefVal(byte, PORT);	  // sets complete DEFVAL
 		void switchPin(byte, PORT, STATE); //switches single Pin
+		void switchAllPins(PORT, STATE); // switches 
 		void togglePin(byte, PORT); // toggles single Pin
+		void setPin(byte, PORT, byte, STATE); // sets IODIR and GPIO status for a single Pin
+		void setInterruptPinPol(STATE); // sets polarity of the interrupt Pin
 		void setInterruptOnChangePin(byte, PORT); // sets Interrrupt On Change for single Pin
-		void setInterruptOnDefValDev(byte, PORT, STATE);  //"Interrupt on Defval", single Pin, State = the state which will cause an Interrupt
-		void setInterruptOnChangePort(byte, PORT); // sets Intterupt on Change for complete Port
+		void setInterruptOnDefValDevPin(byte, PORT, STATE);  //"Interrupt on Defval", single Pin, State = the state which will cause an Interrupt
+		void setInterruptOnChangePort(byte, PORT); // sets Interupt on Change for complete Port
+		void setInterruptOnDefValDevPort(byte, PORT, byte);
 		void deleteAllInterruptsOnPort(PORT); // deletes all Interupts 
+		void setPinPullUp(byte, PORT, STATE); // sets pull-up for an input pin
+		void setPortPullUp(byte, PORT); // sets pull-ups for a complete Port (only input pins are affected)
+		void setIntMirror(STATE);
 		byte getIntFlag(PORT); // self explaining
 		byte getGpio(PORT);  //self explaining
 		byte getIntCap(PORT); // self explaining
-		
 		
 	private:
 		void writeMCP23017(byte, byte);
@@ -67,6 +77,7 @@ class MCP23017{
 		byte ioConA, ioConB;
 		byte intConA, intConB;
 		byte defValA, defValB;
+		byte gppuA, gppuB;
 };
 
 #endif
