@@ -6,4 +6,5 @@ it would be cool if you give it a star.
 
 If you find bugs, please inform me!
 
-It's written by Wolfgang (Wolle) Ewald / wolles-elektronikkiste.de
+Written by Wolfgang (Wolle) Ewald
+wolles-elektronikkiste.de
