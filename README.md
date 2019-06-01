@@ -11,4 +11,4 @@ If you find bugs, please inform me!
 
 Written by Wolfgang (Wolle) Ewald
 
-https://wolles-elektronikkiste.de
+http://wolles-elektronikkiste.de/portexpander-mcp23017
