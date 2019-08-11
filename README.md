@@ -1,4 +1,4 @@
-# MCP23017
+# MCP23017_WE
 This is a library for the MCP23017 I/O Port Expander
 
 You'll find some examples including the wiring which should enable you to
