@@ -32,6 +32,7 @@ cache:
 
 env:
   - PLATFORMIO_CI_SRC=examples/mcp23017_basic_input_output/mcp23017_basic_input_output.ino
+  - PLATFORMIO_CI_SRC=examples/mcp23017_gpio_reading/mcp23017_gpio_reading.ino
 
 install:
   - pip install -U platformio pip setuptools
