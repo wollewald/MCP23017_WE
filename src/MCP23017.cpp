@@ -88,7 +88,7 @@ void MCP23017::setPin(uint8_t pin, MCP_PORT port, uint8_t state){
 			gpioA &= ~(1<<pin); 
 		}
 		writeMCP23017(IODIRA, ioDirA);
-	    writeMCP23017(GPIOA, gpioA);
+		writeMCP23017(GPIOA, gpioA);
 	}
 	if(port==B){
 		if(state==ON){
@@ -98,7 +98,7 @@ void MCP23017::setPin(uint8_t pin, MCP_PORT port, uint8_t state){
 			gpioB &= ~(1<<pin); 
 		}
 		writeMCP23017(IODIRB, ioDirB);
-	    writeMCP23017(GPIOB, gpioB);
+		writeMCP23017(GPIOB, gpioB);
 	}
 }
 
@@ -111,7 +111,7 @@ void MCP23017::togglePin(uint8_t pin, MCP_PORT port){
 			gpioA &= ~(1<<pin); 
 		}
 		writeMCP23017(IODIRA, ioDirA);
-	    writeMCP23017(GPIOA, gpioA);
+		writeMCP23017(GPIOA, gpioA);
 	}
 	if(port==B){
 		if(((gpioB) & (1<<pin))==0){
