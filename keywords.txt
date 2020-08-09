@@ -1,0 +1,55 @@
+#######################################
+# Syntax Coloring Map For MCP23017_WE
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MCP23017_WE	KEYWORD1
+MCP23017	KEYWORD1
+
+# ENUM TYPES
+MCP_PORT	KEYWORD1
+STATE	KEYWORD1
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+reset	KEYWORD2
+Init	KEYWORD2
+setPinMode	KEYWORD2
+setPortMode	KEYWORD2
+setPin	KEYWORD2
+setAlertModeAndLimit_V	KEYWORD2
+togglePin	KEYWORD2
+setPinX	KEYWORD2
+setAllPins	KEYWORD2
+setPort	KEYWORD2
+setPortX	KEYWORD2
+setInterruptPinPol	KEYWORD2
+setIntOdr	KEYWORD2
+setInterruptOnChangePin	KEYWORD2
+setInterruptOnDefValDevPin	KEYWORD2
+setInterruptOnChangePort	KEYWORD2
+setInterruptOnDefValDevPort	KEYWORD2
+setAlertPinToConversionReady	KEYWORD2
+deleteAllInterruptsOnPort	KEYWORD2
+setPinPullUp	KEYWORD2
+setPortPullUp	KEYWORD2
+setIntMirror	KEYWORD2
+getIntFlag	KEYWORD2
+getPin	KEYWORD2
+getPort	KEYWORD2
+getIntCap	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+# ENUM VALUES
+A	LITERAL1
+B	LITERAL1
+OFF	LITERAL1
+ON	LITERAL1
