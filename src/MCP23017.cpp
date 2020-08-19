@@ -17,11 +17,15 @@ https://wolles-elektronikkiste.de
 #include "MCP23017.h"
 
 MCP23017::MCP23017(int addr, uint8_t rp) // I2C Adresse und Reset Pin (Arduino)  
-	: I2C_Address(addr), resetPin(rp){}
+	: I2C_Address(addr), resetPin(rp){
+		pinMode(resetPin, OUTPUT); 
+		digitalWrite(resetPin, HIGH);
+	}
+	
+MCP23017::MCP23017(int addr) // I2C Adresse 
+	: I2C_Address(addr){}
 
 void MCP23017::Init(){
-	pinMode(resetPin, OUTPUT); 
-	reset();
 	ioConA = B00000000;
 	ioConB = B00000000;
 	ioDirA = B00000000;

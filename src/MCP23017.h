@@ -54,7 +54,8 @@ enum STATE {OFF, ON};
 
 class MCP23017{
 	public:
-		MCP23017(int, uint8_t); 
+		MCP23017(int, uint8_t);
+		MCP23017(int);
 		void Init();
 		void reset(); 
 		void setPinMode(uint8_t, MCP_PORT, uint8_t); 
