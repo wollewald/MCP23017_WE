@@ -14,7 +14,14 @@ https://wolles-elektronikkiste.de
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW) 
 #include <Wire.h>
 #include <MCP23017.h> 
-MCP23017 myMCP(MCP_ADDRESS,5); 
+
+/*
+ * You can choose if you want to use the reset function or not.
+ * If you don't need it, you can save one pin.
+ */
+MCP23017 myMCP(MCP_ADDRESS,5); // Pin 5 is used as reset pin
+//MCP23017 myMCP(MCP_ADDRESS); // alternative option not using the reset pin
+
 int wT = 1000; // wT = waiting time
 byte portStatus;
 bool pinStatus;
