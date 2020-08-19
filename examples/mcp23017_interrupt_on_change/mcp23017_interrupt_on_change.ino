@@ -18,7 +18,12 @@ int interruptPin = 3;
 volatile bool event; 
 byte intCapReg; 
 
-MCP23017 myMCP(MCP_ADDRESS,5); // 5 = ResetPin
+/*
+ * You can choose if you want to use the reset function or not.
+ * If you don't need it, you can save one pin.
+ */
+MCP23017 myMCP(MCP_ADDRESS,5); // Pin 5 is used as reset pin
+//MCP23017 myMCP(MCP_ADDRESS); // alternative option not using the reset pin
 
 void setup(){ 
   pinMode(interruptPin, INPUT);
