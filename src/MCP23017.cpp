@@ -496,7 +496,6 @@ void MCP23017::writeMCP23017(uint8_t reg, uint8_t valA, uint8_t valB){
 	Wire.write(valA);
 	Wire.write(valB);
 	Wire.endTransmission();
-	delay(1);
 }
 
 uint8_t MCP23017::readMCP23017(uint8_t reg){
@@ -506,7 +505,6 @@ uint8_t MCP23017::readMCP23017(uint8_t reg){
 	Wire.endTransmission();
 	Wire.requestFrom(I2C_Address, 1);
 	regVal = Wire.read();
-	delay(1);
 	return regVal;
 }
 
