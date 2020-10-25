@@ -8,7 +8,8 @@ the DEFVAL register.
 Wiring can be found under the same name (png file) 
 
 written by Wolfgang (Wolle) Ewald
-https://wolles-elektronikkiste.de
+
+https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en
 
 *******************************************************/
 
