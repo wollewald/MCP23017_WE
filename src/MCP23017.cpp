@@ -226,8 +226,8 @@ void MCP23017::setInterruptPinPol(uint8_t state){
 		ioConB |= (1<<INTPOL);
 	}
 	if(state==LOW){
-		ioConA |= (0<<INTPOL);
-		ioConB |= (0<<INTPOL);
+		ioConA &= ~(1<<INTPOL);
+		ioConB &= ~(1<<INTPOL);
 	}
 	writeMCP23017(IOCONA, ioConA);
 	writeMCP23017(IOCONB, ioConB);
@@ -239,8 +239,8 @@ void MCP23017::setIntOdr(uint8_t state){
 		ioConB |= (1<<INTODR);
 	}
 	if(state==OFF){
-		ioConA |= (0<<INTODR);
-		ioConB |= (0<<INTODR);
+		ioConA &= ~(1<<INTODR);
+		ioConB &= ~(1<<INTODR);
 	}
 	writeMCP23017(IOCONA, ioConA);
 	writeMCP23017(IOCONB, ioConB);
@@ -377,8 +377,8 @@ void MCP23017::setIntMirror(uint8_t state){
 		ioConB |= (1<<MIRROR);
 	}
 	if(state==OFF){
-		ioConA |= (0<<MIRROR);
-		ioConB |= (0<<MIRROR);
+		ioConA &= ~(1<<MIRROR);
+		ioConB &= ~(1<<MIRROR);
 	}
 	writeMCP23017(IOCONA, ioConA);
 	writeMCP23017(IOCONB, ioConB);
