@@ -7,7 +7,7 @@ The sketch shows the features for interrupts caused by pin polarity change.
 Wiring can be found under the same name (png file) 
 
 written by Wolfgang (Wolle) Ewald
-https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en
+https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 
 *******************************************************/
 
