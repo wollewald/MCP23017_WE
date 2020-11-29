@@ -8,7 +8,7 @@ Just attach external HIGH or LOW to the pins and see whats happening.
 Same wiring can be used as for the mcp23017_basic_input_output.ino 
 
 written by Wolfgang (Wolle) Ewald
-https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en
+https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 
 *******************************************************/
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW) 
