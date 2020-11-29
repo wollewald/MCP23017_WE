@@ -13,4 +13,4 @@ Written by Wolfgang (Wolle) Ewald
 
 http://wolles-elektronikkiste.de/portexpander-mcp23017 (German)
 
-https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en (English)
+https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2 (English)
