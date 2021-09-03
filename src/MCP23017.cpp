@@ -569,7 +569,7 @@ uint8_t MCP23017::readMCP23017(uint8_t reg){
     uint8_t regVal;
     _wire->beginTransmission(I2C_Address);
     _wire->write(reg);
-    _wire->endTransmission();
+    _wire->endTransmission(false);
     _wire->requestFrom(I2C_Address, 1);
     regVal = _wire->read();
     return regVal;
