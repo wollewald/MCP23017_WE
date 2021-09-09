@@ -18,8 +18,8 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 
 #include <SPI.h>
 #include <MCP23017.h>
-#define CS_PIN 5   // Chip Select Pin
-#define RESET_PIN 7 
+#define CS_PIN 7   // Chip Select Pin
+#define RESET_PIN 5 
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW)
 
 /* There are ways to create your MCP23017 (MCP23S17) object:
