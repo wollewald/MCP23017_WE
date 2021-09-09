@@ -1,5 +1,5 @@
 /*****************************************
-This is a library for the MCP23017 I/O Port Expander
+This is a library for the MCP23017 and MCP23S17 I/O Port Expander
 
 You'll find some examples including the wiring which should enable you to use the library. 
 Furthermore I have added a list of commands.
@@ -24,6 +24,7 @@ https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en
 #include <Arduino.h>
 #endif
 #include <Wire.h>
+#include <SPI.h>
 
 
 #define IODIRA      0x00   
@@ -48,17 +49,19 @@ https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en
 #define MIRROR      6    
 #define GPPUA       0x0C  
 #define GPPUB       0x0D
+#define SPI_READ    0x01
 
 enum MCP_PORT {A, B};
 enum STATE {OFF, ON};
 
 class MCP23017{
     public:
-        MCP23017(int addr, uint8_t rp);
+        MCP23017(int addr, int rp);
         MCP23017(int addr);
         MCP23017(TwoWire *w, int addr);
-        MCP23017(TwoWire *w, int addr, uint8_t rp);
-        
+        MCP23017(TwoWire *w, int addr, int rp);
+        MCP23017(int cs, int rp, int addr);
+        MCP23017(SPIClass *s, int cs, int rp, int addr);
         void Init();
         void reset(); 
         void setPinMode(uint8_t, MCP_PORT, uint8_t); 
@@ -97,8 +100,12 @@ class MCP23017{
         void writeMCP23017(uint8_t, uint8_t, uint8_t);
         uint8_t readMCP23017(uint8_t);
         TwoWire *_wire;
+        SPIClass *_spi;
         int I2C_Address;
-        uint8_t resetPin;
+        int SPI_Address;
+        int resetPin;
+        int csPin;
+        bool useSPI;
         uint8_t ioDirA, ioDirB;
         uint8_t gpioA, gpioB;
         uint8_t gpIntEnA, gpIntEnB;

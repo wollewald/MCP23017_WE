@@ -1,5 +1,5 @@
 /*****************************************
-This is a library for the MCP23017 I/O Port Expander
+This is a library for the MCP23017 and MCP23S17 I/O Port Expander
 
 You'll find some examples including the wiring which should enable you to use the library. 
 Furthermore I have added a list of commands.
@@ -17,29 +17,58 @@ https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en
 #include "MCP23017.h"
 
 MCP23017::MCP23017(int addr){
+    useSPI = false; 
     _wire = &Wire;
-    I2C_Address = addr;   
+    I2C_Address = addr; 
 }
 
-MCP23017::MCP23017(int addr, uint8_t rp){
+MCP23017::MCP23017(int addr, int rp){
+    useSPI = false; 
     _wire = &Wire;
     I2C_Address = addr;
     resetPin = rp;
-    pinMode(resetPin, OUTPUT); 
+    pinMode(resetPin, OUTPUT);
+    pinMode(csPin, HIGH);
     digitalWrite(resetPin, HIGH);
 }
 
 MCP23017::MCP23017(TwoWire *w, int addr){
+    useSPI = false; 
     _wire = w;
     I2C_Address = addr; 
 }
 
-MCP23017::MCP23017(TwoWire *w, int addr, uint8_t rp){
+MCP23017::MCP23017(TwoWire *w, int addr, int rp){
+    useSPI = false; 
     _wire = w;
     I2C_Address = addr;
     resetPin = rp;
     pinMode(resetPin, OUTPUT); 
     digitalWrite(resetPin, HIGH);
+}
+
+MCP23017::MCP23017(SPIClass *s, int cs, int rp, int addr){
+    useSPI = true;
+    _spi = s;
+    csPin = cs;
+    pinMode(csPin, OUTPUT);
+    digitalWrite(csPin, HIGH);
+    resetPin = rp;
+    pinMode(resetPin, OUTPUT); 
+    digitalWrite(resetPin, HIGH);
+    SPI_Address = addr;
+}
+
+MCP23017::MCP23017(int cs, int rp, int addr){
+    useSPI = true;
+    _spi = &SPI;
+    csPin = cs;
+    pinMode(csPin, OUTPUT);
+    digitalWrite(csPin, HIGH);
+    resetPin = rp;
+    pinMode(resetPin, OUTPUT); 
+    digitalWrite(resetPin, HIGH);
+    SPI_Address = addr;
 }
 
 void MCP23017::Init(){
@@ -550,28 +579,56 @@ void MCP23017::setDefVal(uint8_t val, MCP_PORT port){
 }
 
 void MCP23017::writeMCP23017(uint8_t reg, uint8_t val){
-    _wire->beginTransmission(I2C_Address);
-    _wire->write(reg);
-    _wire->write(val);
-    _wire->endTransmission();
-    //delay(1);
+    if(!useSPI){
+        _wire->beginTransmission(I2C_Address);
+        _wire->write(reg);
+        _wire->write(val);
+        _wire->endTransmission();
+    }
+    else{
+        digitalWrite(csPin, LOW);
+        uint16_t transBytes = ((SPI_Address<<1) << 8 | reg);
+        _spi->transfer16(transBytes); 
+        _spi->transfer(val);
+        digitalWrite(csPin, HIGH);
+    }
 }
 
 void MCP23017::writeMCP23017(uint8_t reg, uint8_t valA, uint8_t valB){
-    _wire->beginTransmission(I2C_Address);
-    _wire->write(reg);
-    _wire->write(valA);
-    _wire->write(valB);
-    _wire->endTransmission();
+    if(!useSPI){
+        _wire->beginTransmission(I2C_Address);
+        _wire->write(reg);
+        _wire->write(valA);
+        _wire->write(valB);
+        _wire->endTransmission();
+    }
+    else{
+        digitalWrite(csPin, LOW);
+        uint16_t transBytes = ((SPI_Address<<1) << 8 | reg);
+        _spi->transfer16(transBytes); 
+        _spi->transfer(valA);
+        _spi->transfer(valB);
+        digitalWrite(csPin, HIGH);
+    }
 }
 
 uint8_t MCP23017::readMCP23017(uint8_t reg){
     uint8_t regVal;
-    _wire->beginTransmission(I2C_Address);
-    _wire->write(reg);
-    _wire->endTransmission(false);
-    _wire->requestFrom(I2C_Address, 1);
-    regVal = _wire->read();
-    return regVal;
+    if(!useSPI){
+        _wire->beginTransmission(I2C_Address);
+        _wire->write(reg);
+        _wire->endTransmission(false);
+        _wire->requestFrom(I2C_Address, 1);
+        regVal = _wire->read();
+        return regVal;
+    }
+    else{
+        digitalWrite(csPin, LOW);
+        uint16_t transBytes = (((SPI_Address<<1) | SPI_READ) << 8 | reg);
+        _spi->transfer16(transBytes); 
+        regVal = _spi->transfer(0x00);
+        digitalWrite(csPin, HIGH);
+        return regVal;
+    }
 }
 
