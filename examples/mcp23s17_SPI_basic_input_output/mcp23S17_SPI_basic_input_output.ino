@@ -25,11 +25,11 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 /* There are ways to create your MCP23017 (MCP23S17) object:
  * MCP23017 myMCP = MCP23017(CS_PIN, RESET_PIN, MCP_ADDRESS);
  * MCP23017 myMCP = MCP23017(&SPI, CS_PIN, RESET_PIN, MCP_ADDRESS);
- * The second option enables you to create your own SPI objects,
+ * The second option allows you to create your own SPI objects,
  * e.g. in order to use two SPI interfaces on the ESP32.
  */
  
-MCP23017 myMCP = MCP23017(&SPI, CS_PIN, RESET_PIN, MCP_ADDRESS);
+MCP23017 myMCP = MCP23017(CS_PIN, RESET_PIN, MCP_ADDRESS);
 
 int wT = 1000; // wT = waiting time
 
