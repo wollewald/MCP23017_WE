@@ -1,6 +1,6 @@
 /******************************************************
 
-Example sketch for the MCP23017 library
+Example sketch for the MCP23017/MCP23S17 library
 
 The sketch shows how to use the MCP23S17. The MCP23S17 is working
 with SPI instead of I2C. The class is still called MCP23017. All 
