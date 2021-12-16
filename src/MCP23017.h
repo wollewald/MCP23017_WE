@@ -56,6 +56,7 @@ enum STATE {OFF, ON};
 
 class MCP23017{
     public:
+        MCP23017();
         MCP23017(int addr, int rp);
         MCP23017(int addr);
         MCP23017(TwoWire *w, int addr);

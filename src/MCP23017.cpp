@@ -16,6 +16,10 @@ https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en
 
 #include "MCP23017.h"
 
+MCP23017::MCP23017(){
+    useSPI = false; 
+}
+
 MCP23017::MCP23017(int addr){
     useSPI = false; 
     _wire = &Wire;
