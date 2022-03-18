@@ -43,6 +43,7 @@ getIntFlag	KEYWORD2
 getPin	KEYWORD2
 getPort	KEYWORD2
 getIntCap	KEYWORD2
+setSPIClockSpeed	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
