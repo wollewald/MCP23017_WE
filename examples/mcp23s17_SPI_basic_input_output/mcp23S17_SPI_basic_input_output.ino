@@ -35,9 +35,8 @@ int wT = 3000; // wT = waiting time
 
 void setup(){ 
   SPI.begin();
-  Serial.begin(9600); // wieder entfernen!
   myMCP.Init(); 
-  // myMCP.setSPIClockSpeed(8000000); // Choose SPI clock speed
+  // myMCP.setSPIClockSpeed(8000000); // Choose SPI clock speed (after Init()!)
   myMCP.setPortMode(B11111101, A);  // Port A: all pins are OUTPUT except pin 1
   myMCP.setPortMode(B11111111, B);  // Port B: all pins are OUTPUT
   delay(wT);
