@@ -82,6 +82,7 @@ void MCP23017::Init(){
     ioDirB = B00000000;
     gppuA = B00000000;
     gppuB = B00000000;
+    mySPISettings = SPISettings(8000000, MSBFIRST, SPI_MODE0); 
     setPortX(B00000000, B00000000, A);
     setPortX(B00000000, B00000000, B);
     setGpIntEn(B00000000,A);
@@ -530,6 +531,10 @@ uint8_t MCP23017::getIntCap(MCP_PORT port){
     return value;
 }
 
+void MCP23017::setSPIClockSpeed(unsigned long clock){
+    mySPISettings = SPISettings(clock, MSBFIRST, SPI_MODE0);
+}
+
 void MCP23017::setI2C_Address(int addr){
     I2C_Address = addr;
 }
@@ -590,11 +595,13 @@ void MCP23017::writeMCP23017(uint8_t reg, uint8_t val){
         _wire->endTransmission();
     }
     else{
+        _spi->beginTransaction(mySPISettings);
         digitalWrite(csPin, LOW);
         uint16_t transBytes = ((SPI_Address<<1) << 8 | reg);
         _spi->transfer16(transBytes); 
         _spi->transfer(val);
         digitalWrite(csPin, HIGH);
+        _spi->endTransaction();
     }
 }
 
@@ -607,12 +614,14 @@ void MCP23017::writeMCP23017(uint8_t reg, uint8_t valA, uint8_t valB){
         _wire->endTransmission();
     }
     else{
+        _spi->beginTransaction(mySPISettings);
         digitalWrite(csPin, LOW);
         uint16_t transBytes = ((SPI_Address<<1) << 8 | reg);
         _spi->transfer16(transBytes); 
         _spi->transfer(valA);
         _spi->transfer(valB);
         digitalWrite(csPin, HIGH);
+        _spi->endTransaction();
     }
 }
 
@@ -627,11 +636,13 @@ uint8_t MCP23017::readMCP23017(uint8_t reg){
         return regVal;
     }
     else{
+        _spi->beginTransaction(mySPISettings);
         digitalWrite(csPin, LOW);
         uint16_t transBytes = (((SPI_Address<<1) | SPI_READ) << 8 | reg);
         _spi->transfer16(transBytes); 
         regVal = _spi->transfer(0x00);
         digitalWrite(csPin, HIGH);
+        _spi->endTransaction();
         return regVal;
     }
 }

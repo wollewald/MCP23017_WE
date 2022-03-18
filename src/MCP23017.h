@@ -88,7 +88,8 @@ class MCP23017{
         uint8_t getIntFlag(MCP_PORT);
         bool getPin(uint8_t, MCP_PORT);
         uint8_t getPort(MCP_PORT);  
-        uint8_t getIntCap(MCP_PORT); 
+        uint8_t getIntCap(MCP_PORT);
+        void setSPIClockSpeed(unsigned long clock); 
         
     private:
         void setI2C_Address(int);  
@@ -102,6 +103,7 @@ class MCP23017{
         uint8_t readMCP23017(uint8_t);
         TwoWire *_wire;
         SPIClass *_spi;
+        SPISettings mySPISettings;
         int I2C_Address;
         int SPI_Address;
         int resetPin;
