@@ -51,7 +51,7 @@ MCP23017::MCP23017(TwoWire *w, int addr, int rp){
     digitalWrite(resetPin, HIGH);
 }
 
-MCP23017::MCP23017(SPIClass *s, int cs, int rp, int addr){
+ MCP23017::MCP23017(SPIClass *s, int cs, int rp, int addr){
     useSPI = true;
     _spi = s;
     csPin = cs;
@@ -76,23 +76,23 @@ MCP23017::MCP23017(int cs, int rp, int addr){
 }
 
 void MCP23017::Init(){
-    ioConA = B00000000;
-    ioConB = B00000000;
-    ioDirA = B00000000;
-    ioDirB = B00000000;
-    gppuA = B00000000;
-    gppuB = B00000000;
+    ioConA = 0b00000000;
+    ioConB = 0b00000000;
+    ioDirA = 0b00000000;
+    ioDirB = 0b00000000;
+    gppuA = 0b00000000;
+    gppuB = 0b00000000;
     mySPISettings = SPISettings(8000000, MSBFIRST, SPI_MODE0); 
-    setPortX(B00000000, B00000000, A);
-    setPortX(B00000000, B00000000, B);
-    setGpIntEn(B00000000,A);
-    setGpIntEn(B00000000,B);
+    setPortX(0b00000000, 0b00000000, A);
+    setPortX(0b00000000, 0b00000000, B);
+    setGpIntEn(0b00000000,A);
+    setGpIntEn(0b00000000,B);
     setIoCon(ioConA, A);
     setIoCon(ioConB, B);
-    setIntCon(B00000000, A);
-    setIntCon(B00000000, B);
-    setDefVal(B00000000, A);
-    setDefVal(B00000000, B);
+    setIntCon(0b00000000, A);
+    setIntCon(0b00000000, B);
+    setDefVal(0b00000000, A);
+    setDefVal(0b00000000, B);
 };
 
 void MCP23017::reset(){
@@ -268,19 +268,19 @@ void MCP23017::setPinX(uint8_t pin, MCP_PORT port, uint8_t ioDir, uint8_t state)
 void MCP23017::setAllPins(MCP_PORT port, uint8_t state){
     if(port==A){
         if(state==ON){
-            gpioA = B11111111;
+            gpioA = 0b11111111;
         }
         else if (state==OFF){
-            gpioA = B00000000;
+            gpioA = 0b00000000;
         }
         writeMCP23017(GPIOA, gpioA);
     }
     if(port==B){
         if(state==ON){
-            gpioB = B11111111;
+            gpioB = 0b11111111;
         }
         else if (state==OFF){
-            gpioB = B00000000;
+            gpioB = 0b00000000;
         }
         writeMCP23017(GPIOB, gpioB);
     }
@@ -431,11 +431,11 @@ void MCP23017::setInterruptOnDefValDevPort(uint8_t val, MCP_PORT port, uint8_t s
 
 void MCP23017::deleteAllInterruptsOnPort(MCP_PORT port){
     if(port==A){
-        gpIntEnA = B00000000;
+        gpIntEnA = 0b00000000;
         writeMCP23017(GPINTENA, gpIntEnA);
     }
     else if (port==B){
-        gpIntEnB = B00000000;
+        gpIntEnB = 0b00000000;
         writeMCP23017(GPINTENB, gpIntEnB);
     }
 }
