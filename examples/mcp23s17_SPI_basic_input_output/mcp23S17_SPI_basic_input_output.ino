@@ -17,19 +17,19 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 *******************************************************/
 
 #include <SPI.h>
-#include <MCP23017.h>
+#include <MCP23S17.h>
 #define CS_PIN 7   // Chip Select Pin
 #define RESET_PIN 5 
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW)
 
 /* There are ways to create your MCP23017 (MCP23S17) object:
- * MCP23017 myMCP = MCP23017(CS_PIN, RESET_PIN, MCP_ADDRESS);
- * MCP23017 myMCP = MCP23017(&SPI, CS_PIN, RESET_PIN, MCP_ADDRESS);
+ * MCP23S17 myMCP = MCP23S17(CS_PIN, RESET_PIN, MCP_ADDRESS);
+ * MCP23S17 myMCP = MCP23S17(&SPI, CS_PIN, RESET_PIN, MCP_ADDRESS);
  * The second option allows you to create your own SPI objects,
  * e.g. in order to use two SPI interfaces on the ESP32.
  */
  
-MCP23017 myMCP = MCP23017(CS_PIN, RESET_PIN, MCP_ADDRESS);
+MCP23S17 myMCP = MCP23S17(CS_PIN, RESET_PIN, MCP_ADDRESS);
 
 int wT = 3000; // wT = waiting time
 
@@ -37,16 +37,16 @@ void setup(){
   SPI.begin();
   myMCP.Init(); 
   // myMCP.setSPIClockSpeed(8000000); // Choose SPI clock speed (after Init()!)
-  myMCP.setPortMode(B11111101, A);  // Port A: all pins are OUTPUT except pin 1
-  myMCP.setPortMode(B11111111, B);  // Port B: all pins are OUTPUT
+  myMCP.setPortMode(0b11111101, A);  // Port A: all pins are OUTPUT except pin 1
+  myMCP.setPortMode(0b11111111, B);  // Port B: all pins are OUTPUT
   delay(wT);
   myMCP.setAllPins(A, ON); // alle LEDs switched on except A1
   delay(wT);
   myMCP.setPinX(1, A, OUTPUT, HIGH); // A1 switched on 
   delay(wT); 
-  myMCP.setPort(B11110000, B); // B4 - B7 switched on
+  myMCP.setPort(0b11110000, B); // B4 - B7 switched on
   delay(wT);
-  myMCP.setPort(B01011110, A); // A0,A5,A7 switched off
+  myMCP.setPort(0b01011110, A); // A0,A5,A7 switched off
   delay(wT);
   myMCP.setPinX(0,B,OUTPUT,HIGH); // B0 switched on
   delay(wT);
@@ -56,7 +56,7 @@ void setup(){
   delay(wT);
   myMCP.setPin(3, A, LOW); // A3 switched off
   delay(wT);
-  myMCP.setPortX(B11110000, B01101111,B); // at port B only B5,B6 are switched on
+  myMCP.setPortX(0b11110000, 0b01101111,B); // at port B only B5,B6 are switched on
   delay(wT);
   myMCP.setPinMode(0,B,OUTPUT); // B0 --> OUTPUT
   for(int i=0; i<5; i++){  // B0 blinking
