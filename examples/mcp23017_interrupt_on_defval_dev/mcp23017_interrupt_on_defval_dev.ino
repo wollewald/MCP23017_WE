@@ -36,15 +36,15 @@ void setup(){
   Serial.begin(9600);
   Wire.begin();
   myMCP.Init();
-  myMCP.setPortMode(B11111111,A);
-  myMCP.setPort(B11111111, A); // just an LED test 
+  myMCP.setPortMode(0b11111111,A);
+  myMCP.setPort(0b11111111, A); // just an LED test 
   delay(1000); 
   myMCP.setAllPins(A, OFF);
   delay(1000);
   myMCP.setInterruptPinPol(HIGH);
   delay(10);
-  myMCP.setInterruptOnDefValDevPort(B11111111, B, B00001111); // interrupt pins, port, DEFVALB
-  myMCP.setPortPullUp(B00001111, B); // pull-up for B0-B3
+  myMCP.setInterruptOnDefValDevPort(0b11111111, B, 0b00001111); // interrupt pins, port, DEFVALB
+  myMCP.setPortPullUp(0b00001111, B); // pull-up for B0-B3
   event=false;
 }  
 
