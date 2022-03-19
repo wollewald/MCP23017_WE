@@ -33,14 +33,14 @@ void setup(){
   Serial.begin(9600);
   Wire.begin();
   myMCP.Init(); 
-  myMCP.setPortMode(B11111111,A);
-  myMCP.setPort(B11111111, A); // just an LED test
+  myMCP.setPortMode(0b11111111,A);
+  myMCP.setPort(0b11111111, A); // just an LED test
   delay(1000); 
   myMCP.setAllPins(A, OFF);
   delay(1000);
   myMCP.setInterruptPinPol(HIGH); // set INTA and INTB active-high
   delay(10);
-  myMCP.setInterruptOnChangePort(B11111111, B); //set all B pins as interrrupt Pins
+  myMCP.setInterruptOnChangePort(0b11111111, B); //set all B pins as interrrupt Pins
   event=false;
 }  
 
