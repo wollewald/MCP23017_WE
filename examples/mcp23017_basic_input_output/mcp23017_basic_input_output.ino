@@ -30,16 +30,16 @@ int wT = 1000; // wT = waiting time
 void setup(){ 
   Wire.begin();
   myMCP.Init();  
-  myMCP.setPortMode(B11111101, A);  // Port A: all pins are OUTPUT except pin 1
-  myMCP.setPortMode(B11111111, B);  // Port B: all pins are OUTPUT
+  myMCP.setPortMode(0b11111101, A);  // Port A: all pins are OUTPUT except pin 1
+  myMCP.setPortMode(0b11111111, B);  // Port B: all pins are OUTPUT
   delay(wT);
   myMCP.setAllPins(A, ON); // alle LEDs switched on except A1
   delay(wT);
   myMCP.setPinX(1, A, OUTPUT, HIGH); // A1 switched on 
   delay(wT); 
-  myMCP.setPort(B11110000, B); // B4 - B7 switched on
+  myMCP.setPort(0b11110000, B); // B4 - B7 switched on
   delay(wT);
-  myMCP.setPort(B01011110, A); // A0,A5,A7 switched off
+  myMCP.setPort(0b01011110, A); // A0,A5,A7 switched off
   delay(wT);
   myMCP.setPinX(0,B,OUTPUT,HIGH); // B0 switched on
   delay(wT);
@@ -49,7 +49,7 @@ void setup(){
   delay(wT);
   myMCP.setPin(3, A, LOW); // A3 switched off
   delay(wT);
-  myMCP.setPortX(B11110000, B01101111,B); // at port B only B5,B6 are switched on
+  myMCP.setPortX(0b11110000, 0b01101111,B); // at port B only B5,B6 are switched on
   delay(wT);
   myMCP.setPinMode(0,B,OUTPUT); // B0 --> OUTPUT
   for(int i=0; i<5; i++){  // B0 blinking
