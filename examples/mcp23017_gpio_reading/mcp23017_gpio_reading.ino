@@ -33,9 +33,9 @@ void setup(){
   Serial.begin(9600);
   Wire.begin();
   myMCP.Init();  
-  myMCP.setPortMode(B11111111, A);  // Port A: all pins are OUTPUT
-  myMCP.setPortMode(B11111111, B);  // Port B: all pins are OUTPUT
-  myMCP.setPort(B10010011,A);  // 
+  myMCP.setPortMode(0b11111111, A);  // Port A: all pins are OUTPUT
+  myMCP.setPortMode(0b11111111, B);  // Port B: all pins are OUTPUT
+  myMCP.setPort(0b10010011,A);  // 
 }
 
 void loop(){ 
