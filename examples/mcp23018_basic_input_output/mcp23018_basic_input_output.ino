@@ -3,10 +3,10 @@
 Example sketch for the MCP23017/MCP23S17/MCP23018/
 MCP23S18 library.
 
-The sketch shows how to use the MCP23018. The MCP2018 is working
+The sketch shows how to use the MCP23018. The MCP23018 is working
 with I2C. All functions are the identical, except the constructors.
-The MCP23x18 ICs can deal with higher currents, but can only be used
-as sink.
+The MCP23x18 ICs can deal with higher currents compared to the MCP23x17
+ICs, but can only be used as sink.
 
 Be aware that the I2C is set by the voltage applied to the address pin.
 
