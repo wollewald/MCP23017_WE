@@ -22,7 +22,7 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 #define RESET_PIN 5 
 #define MCP_ADDRESS 0x20 
 
-/* There are several ways to create your MCP23017 object:
+/* There are several ways to create your MCP23018 object:
  * MCP23018 myMCP = MCP23018(MCP_ADDRESS)            -> uses Wire / no reset pin (if not needed)
  * MCP23018 myMCP = MCP23018(MCP_ADDRESS, RESET_PIN)  -> uses Wire / RESET_PIN
  * MCP23018 myMCP = MCP23018(&wire2, MCP_ADDRESS)    -> uses the TwoWire object wire2 / no reset pin
