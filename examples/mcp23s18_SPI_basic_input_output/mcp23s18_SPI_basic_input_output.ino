@@ -3,7 +3,7 @@
 Example sketch for the MCP23017/MCP23S17/MCP23018/
 MCP23S18 library.
 
-The sketch shows how to use the MCP23S18 The MCP23S18 is working
+The sketch shows how to use the MCP23S18. The MCP23S18 is working
 with SPI. All functions are the identical, except the constructors. 
 The MCP23x18 ICs can deal with higher currents, but can only be used
 as sink.
