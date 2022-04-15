@@ -38,7 +38,7 @@ void setup(){
   // myMCP.setSPIClockSpeed(8000000); // Choose SPI clock speed (after Init()!)
   delay(wT);
   myMCP.setAllPins(A,OFF);            // Port A: all pins are LOW
-  myMCP.setAllPins(B,OFF);            // Port B: all Pins are LOW
+  myMCP.setAllPins(B,OFF);            // Port B: all pins are LOW
   myMCP.setPortMode(0b11111111, A);   // Port A: all pins are OUTPUT = LEDs are on!
   myMCP.setPortMode(0b11111111, B);   // Port B: all pins are OUTPUT
   delay(wT);
