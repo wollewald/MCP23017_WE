@@ -39,8 +39,8 @@ void setup(){
   myMCP.Init(); 
   delay(wT);
   myMCP.setAllPins(A,OFF);            // Port A: all pins are LOW
-  myMCP.setAllPins(B,OFF);            // Port B: all Pins are LOW
-  myMCP.setPortMode(0b11111111, A);   // Port A: all pins are OUTPUT = LEDs are on!
+  myMCP.setAllPins(B,OFF);            // Port B: all pins are LOW
+  myMCP.setPortMode(0b11111111, A);   // Port A: all pins are OUTPUT -> LEDs are on
   myMCP.setPortMode(0b11111111, B);   // Port B: all pins are OUTPUT
   delay(wT);
   myMCP.setPortMode(0b00000000, A);   // Port A: all pins are INPUT = LEDs are off
