@@ -10,7 +10,9 @@ if you give it a star.
 If you find bugs, please inform me!
 
 Written by Wolfgang (Wolle) Ewald
-https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en
+https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2 (English)
+https://wolles-elektronikkiste.de/portexpander-mcp23017       (German)
+
 
 *******************************************/
 
