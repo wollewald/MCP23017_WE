@@ -1,15 +1,16 @@
 /******************************************************
 
-Example sketch for the MCP23017/MCP23S17 library
+Example sketch for the MCP23017/MCP23S17/MCP23018/
+MCP23S18 library.
 
 The sketch shows how to use the MCP23S17. The MCP23S17 is working
-with SPI instead of I2C. The class is still called MCP23017. All 
-functions are the identical, except the constructors. 
+with SPI instead of I2C. All functions are the identical, except 
+the constructors. 
 
 Although the MCP23S17 is SPI based you still have to select an 
-address!
+address! It allows you to use up to 8 MCP23S17 on the same CS-line.
 
-Wiring can be found under the same name (png file) 
+Wiring can be found under the same name (png file). 
 
 written by Wolfgang (Wolle) Ewald
 https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
@@ -22,7 +23,7 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 #define RESET_PIN 5 
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW)
 
-/* There are ways to create your MCP23017 (MCP23S17) object:
+/* There are two ways to create your MCP23S17 object:
  * MCP23S17 myMCP = MCP23S17(CS_PIN, RESET_PIN, MCP_ADDRESS);
  * MCP23S17 myMCP = MCP23S17(&SPI, CS_PIN, RESET_PIN, MCP_ADDRESS);
  * The second option allows you to create your own SPI objects,
