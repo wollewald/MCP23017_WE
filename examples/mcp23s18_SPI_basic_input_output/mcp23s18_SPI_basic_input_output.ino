@@ -21,7 +21,7 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 #define RESET_PIN 5 
 #define MCP_SPI_CTRL_BYTE 0x20 // Do not change
 
-/* There are two ways to create your MCP23017 (MCP23S17) object:
+/* There are two ways to create your MCP23S18 object:
  * MCP23S18 myMCP = MCP23S18(CS_PIN, RESET_PIN, MCP_CTRL_BYTE);
  * MCP23S18 myMCP = MCP23S18(&SPI, CS_PIN, RESET_PIN, MCP_CTRL_BYTE);
  * The second option allows you to create your own SPI objects,
