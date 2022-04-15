@@ -1,5 +1,5 @@
 /*****************************************
-This is a library for the MCP23017 and MCP23S17 I/O Port Expander
+This is a library for the MCP23017/MCP23S17/MCP23018/MCP23S18 I/O Port Expander.
 
 You'll find some examples including the wiring which should enable you to use the library. 
 Furthermore I have added a list of commands.
