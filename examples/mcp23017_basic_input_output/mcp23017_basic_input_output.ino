@@ -1,8 +1,10 @@
 /******************************************************
 
-Example sketch for the MCP23017 library
+Example sketch for the MCP23017/MCP23S17/MCP23018/
+MCP23S18 library.
 
-The sketch shows the features for basic input / output operations.
+The sketch shows the features for basic input / output operations
+for the MCP23017.
 
 Wiring can be found under the same name (png file) 
 
