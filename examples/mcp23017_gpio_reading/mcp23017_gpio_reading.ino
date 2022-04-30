@@ -32,7 +32,10 @@ bool pinStatus;
 void setup(){ 
   Serial.begin(9600);
   Wire.begin();
-  myMCP.Init();  
+  if(!myMCP.Init()){
+    Serial.println("Not connected!");
+    while(1){} 
+  }  
   myMCP.setPortMode(0b11111111, A);  // Port A: all pins are OUTPUT
   myMCP.setPortMode(0b11111111, B);  // Port B: all pins are OUTPUT
   myMCP.setPort(0b10010011,A);  // 
