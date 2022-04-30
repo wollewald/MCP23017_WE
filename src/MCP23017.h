@@ -25,8 +25,15 @@ https://wolles-elektronikkiste.de/portexpander-mcp23017       (German)
 #else
 #include <Arduino.h>
 #endif
-#include <Wire.h>
-#include <SPI.h>
+#include "MCP23017_config.h"
+
+#ifdef USE_TINY_WIRE_M_
+ #include <TinyWireM.h>
+#endif
+#ifndef USE_TINY_WIRE_M_
+ #include <Wire.h>
+ #include <SPI.h>
+#endif
 
 
 #define IODIRA      0x00   
@@ -61,11 +68,13 @@ class MCP23017{
         MCP23017();
         MCP23017(int addr, int rp);
         MCP23017(int addr);
+#ifndef USE_TINY_WIRE_M_   
         MCP23017(TwoWire *w, int addr);
         MCP23017(TwoWire *w, int addr, int rp);
         MCP23017(int cs, int rp, int addr);
         MCP23017(SPIClass *s, int cs, int rp, int addr);
-        void Init();
+#endif
+        bool Init();
         void reset(); 
         void setPinMode(uint8_t, MCP_PORT, uint8_t); 
         void setPortMode(uint8_t, MCP_PORT);
@@ -103,10 +112,12 @@ class MCP23017{
         void writeMCP23017(uint8_t, uint8_t);
         void writeMCP23017(uint8_t, uint8_t, uint8_t);
         uint8_t readMCP23017(uint8_t);
+#ifndef USE_TINY_WIRE_M_   
         TwoWire *_wire;
         SPIClass *_spi;
         SPISettings mySPISettings;
-        int I2C_Address;
+#endif
+    int I2C_Address;
         int SPI_Address;
         int resetPin;
         int csPin;

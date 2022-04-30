@@ -19,17 +19,24 @@ https://wolles-elektronikkiste.de/portexpander-mcp23017       (German)
 
 MCP23017::MCP23017(){
     useSPI = false; 
+#ifndef USE_TINY_WIRE_M_     
+    _wire = &Wire;
+#endif
 }
 
 MCP23017::MCP23017(int addr){
     useSPI = false; 
+#ifndef USE_TINY_WIRE_M_     
     _wire = &Wire;
+#endif
     I2C_Address = addr; 
 }
 
 MCP23017::MCP23017(int addr, int rp){
     useSPI = false; 
+#ifndef USE_TINY_WIRE_M_     
     _wire = &Wire;
+#endif
     I2C_Address = addr;
     resetPin = rp;
     pinMode(resetPin, OUTPUT);
@@ -37,6 +44,7 @@ MCP23017::MCP23017(int addr, int rp){
     digitalWrite(resetPin, HIGH);
 }
 
+#ifndef USE_TINY_WIRE_M_
 MCP23017::MCP23017(TwoWire *w, int addr){
     useSPI = false; 
     _wire = w;
@@ -75,15 +83,22 @@ MCP23017::MCP23017(int cs, int rp, int addr){
     digitalWrite(resetPin, HIGH);
     SPI_Address = addr;
 }
+#endif
 
-void MCP23017::Init(){
+bool MCP23017::Init(){
+    reset();
+    setIntCon(0b10101010, A);
+    if(readMCP23017(INTCONA) != 0b10101010)
+        return false;
     ioConA = 0b00000000;
     ioConB = 0b00000000;
     ioDirA = 0b00000000;
     ioDirB = 0b00000000;
     gppuA = 0b00000000;
     gppuB = 0b00000000;
+#ifndef USE_TINY_WIRE_M_ 
     mySPISettings = SPISettings(8000000, MSBFIRST, SPI_MODE0); 
+#endif
     setPortX(0b00000000, 0b00000000, A);
     setPortX(0b00000000, 0b00000000, B);
     setGpIntEn(0b00000000,A);
@@ -94,6 +109,7 @@ void MCP23017::Init(){
     setIntCon(0b00000000, B);
     setDefVal(0b00000000, A);
     setDefVal(0b00000000, B);
+    return true;
 };
 
 void MCP23017::reset(){
@@ -532,9 +548,11 @@ uint8_t MCP23017::getIntCap(MCP_PORT port){
     return value;
 }
 
+#ifndef USE_TINY_WIRE_M_
 void MCP23017::setSPIClockSpeed(unsigned long clock){
     mySPISettings = SPISettings(clock, MSBFIRST, SPI_MODE0);
 }
+#endif
 
 void MCP23017::setI2C_Address(int addr){
     I2C_Address = addr;
@@ -590,11 +608,19 @@ void MCP23017::setDefVal(uint8_t val, MCP_PORT port){
 
 void MCP23017::writeMCP23017(uint8_t reg, uint8_t val){
     if(!useSPI){
+#ifndef USE_TINY_WIRE_M_
         _wire->beginTransmission(I2C_Address);
         _wire->write(reg);
         _wire->write(val);
         _wire->endTransmission();
+#else
+        TinyWireM.beginTransmission(I2C_Address);
+        TinyWireM.send(reg);
+        TinyWireM.send(val);
+        TinyWireM.endTransmission();    
+#endif
     }
+#ifndef USE_TINY_WIRE_M_    
     else{
         _spi->beginTransaction(mySPISettings);
         digitalWrite(csPin, LOW);
@@ -604,16 +630,26 @@ void MCP23017::writeMCP23017(uint8_t reg, uint8_t val){
         digitalWrite(csPin, HIGH);
         _spi->endTransaction();
     }
+#endif
 }
 
 void MCP23017::writeMCP23017(uint8_t reg, uint8_t valA, uint8_t valB){
     if(!useSPI){
+#ifndef USE_TINY_WIRE_M_
         _wire->beginTransmission(I2C_Address);
         _wire->write(reg);
         _wire->write(valA);
         _wire->write(valB);
         _wire->endTransmission();
+#else
+        TinyWireM.beginTransmission(I2C_Address);
+        TinyWireM.send(reg);
+        TinyWireM.send(valA);
+        TinyWireM.send(valB);
+        TinyWireM.endTransmission();    
+#endif  
     }
+#ifndef USE_TINY_WIRE_M_
     else{
         _spi->beginTransaction(mySPISettings);
         digitalWrite(csPin, LOW);
@@ -624,18 +660,28 @@ void MCP23017::writeMCP23017(uint8_t reg, uint8_t valA, uint8_t valB){
         digitalWrite(csPin, HIGH);
         _spi->endTransaction();
     }
+#endif
 }
 
 uint8_t MCP23017::readMCP23017(uint8_t reg){
     uint8_t regVal;
     if(!useSPI){
+#ifndef USE_TINY_WIRE_M_
         _wire->beginTransmission(I2C_Address);
         _wire->write(reg);
         _wire->endTransmission(false);
         _wire->requestFrom(I2C_Address, 1);
         regVal = _wire->read();
+#else
+        TinyWireM.beginTransmission(I2C_Address);
+        TinyWireM.send(reg);
+        TinyWireM.endTransmission();
+        TinyWireM.requestFrom(I2C_Address, 1);
+        regVal = TinyWireM.receive();
+#endif
         return regVal;
     }
+#ifndef USE_TINY_WIRE_M_
     else{
         _spi->beginTransaction(mySPISettings);
         digitalWrite(csPin, LOW);
@@ -646,5 +692,6 @@ uint8_t MCP23017::readMCP23017(uint8_t reg){
         _spi->endTransaction();
         return regVal;
     }
+#endif
 }
 
