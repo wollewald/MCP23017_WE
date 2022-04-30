@@ -35,8 +35,12 @@ MCP23S17 myMCP = MCP23S17(CS_PIN, RESET_PIN, MCP_ADDRESS);
 int wT = 3000; // wT = waiting time
 
 void setup(){ 
+  Serial.begin(9600);
   SPI.begin();
-  myMCP.Init(); 
+  if(!myMCP.Init()){
+    Serial.println("Not connected!");
+    while(1){} 
+  }
   // myMCP.setSPIClockSpeed(8000000); // Choose SPI clock speed (after Init()!)
   myMCP.setPortMode(0b11111101, A);  // Port A: all pins are OUTPUT except pin 1
   myMCP.setPortMode(0b11111111, B);  // Port B: all pins are OUTPUT
