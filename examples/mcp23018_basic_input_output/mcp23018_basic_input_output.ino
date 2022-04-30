@@ -35,8 +35,12 @@ MCP23018 myMCP = MCP23018(MCP_ADDRESS, RESET_PIN);
 int wT = 500; // wT = waiting time
 
 void setup(){ 
+  Serial.begin(9600);
   Wire.begin();
-  myMCP.Init(); 
+  if(!myMCP.Init()){
+    Serial.println("Not connected!");
+    while(1){} 
+  } 
   delay(wT);
   myMCP.setAllPins(A,OFF);            // Port A: all pins are LOW
   myMCP.setAllPins(B,OFF);            // Port B: all pins are LOW
