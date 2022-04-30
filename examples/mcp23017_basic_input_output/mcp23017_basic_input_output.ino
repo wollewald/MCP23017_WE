@@ -30,8 +30,12 @@ MCP23017 myMCP = MCP23017(MCP_ADDRESS, RESET_PIN);
 int wT = 1000; // wT = waiting time
 
 void setup(){ 
+  Serial.begin(9600);
   Wire.begin();
-  myMCP.Init();  
+  if(!myMCP.Init()){
+    Serial.println("Not connected!");
+    while(1){} 
+  }
   myMCP.setPortMode(0b11111101, A);  // Port A: all pins are OUTPUT except pin 1
   myMCP.setPortMode(0b11111111, B);  // Port B: all pins are OUTPUT
   delay(wT);
