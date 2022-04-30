@@ -2,7 +2,9 @@
 This is a library for the MCP23017, MCP23S17, MCP23018 and MCP23S18 I/O Port Expander.
 
 You'll find some examples including the wiring (examples folder) which 
-should enable you to use the library. Furthermore I have added a list of commands. 
+should enable you to use the library. Furthermore I have added a list of commands.
+
+I have implemented an option to use it with an ATtiny and the TineWireM library. 
 
 You are free to use it, change it or build on it. In case you like it,
 it would be cool if you give it a star.
