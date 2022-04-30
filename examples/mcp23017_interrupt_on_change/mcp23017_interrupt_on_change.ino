@@ -32,7 +32,10 @@ void setup(){
   attachInterrupt(digitalPinToInterrupt(interruptPin), eventHappened, RISING);
   Serial.begin(9600);
   Wire.begin();
-  myMCP.Init(); 
+  if(!myMCP.Init()){
+    Serial.println("Not connected!");
+    while(1){} 
+  } 
   myMCP.setPortMode(0b11111111,A);
   myMCP.setPort(0b11111111, A); // just an LED test
   delay(1000); 
