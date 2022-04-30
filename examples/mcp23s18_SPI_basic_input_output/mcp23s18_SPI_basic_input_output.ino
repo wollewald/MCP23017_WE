@@ -33,8 +33,12 @@ MCP23S18 myMCP = MCP23S18(CS_PIN, RESET_PIN, MCP_SPI_CTRL_BYTE);
 int wT = 500; // wT = waiting time
 
 void setup(){ 
+  Serial.begin(9600);
   SPI.begin();
-  myMCP.Init(); 
+  if(!myMCP.Init()){
+    Serial.println("Not connected!");
+    while(1){} 
+  }
   // myMCP.setSPIClockSpeed(8000000); // Choose SPI clock speed (after Init()!)
   delay(wT);
   myMCP.setAllPins(A,OFF);            // Port A: all pins are LOW (OFF = LOW = 0)
