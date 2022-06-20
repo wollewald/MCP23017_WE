@@ -17,14 +17,8 @@ https://wolles-elektronikkiste.de/portexpander-mcp23017       (German)
 
 #include "MCP23017.h"
 
-MCP23017::MCP23017(){
-    useSPI = false; 
-#ifndef USE_TINY_WIRE_M_     
-    _wire = &Wire;
-#endif
-}
-
 MCP23017::MCP23017(int addr){
+    resetPin = 99;
     useSPI = false; 
 #ifndef USE_TINY_WIRE_M_     
     _wire = &Wire;
@@ -39,13 +33,12 @@ MCP23017::MCP23017(int addr, int rp){
 #endif
     I2C_Address = addr;
     resetPin = rp;
-    pinMode(resetPin, OUTPUT);
     pinMode(csPin, HIGH);
-    digitalWrite(resetPin, HIGH);
 }
 
 #ifndef USE_TINY_WIRE_M_
 MCP23017::MCP23017(TwoWire *w, int addr){
+    resetPin = 99;
     useSPI = false; 
     _wire = w;
     I2C_Address = addr; 
@@ -56,8 +49,6 @@ MCP23017::MCP23017(TwoWire *w, int addr, int rp){
     _wire = w;
     I2C_Address = addr;
     resetPin = rp;
-    pinMode(resetPin, OUTPUT); 
-    digitalWrite(resetPin, HIGH);
 }
 
  MCP23017::MCP23017(SPIClass *s, int cs, int rp, int addr){
@@ -67,8 +58,6 @@ MCP23017::MCP23017(TwoWire *w, int addr, int rp){
     pinMode(csPin, OUTPUT);
     digitalWrite(csPin, HIGH);
     resetPin = rp;
-    pinMode(resetPin, OUTPUT); 
-    digitalWrite(resetPin, HIGH);
     SPI_Address = addr;
 }
 
@@ -79,36 +68,42 @@ MCP23017::MCP23017(int cs, int rp, int addr){
     pinMode(csPin, OUTPUT);
     digitalWrite(csPin, HIGH);
     resetPin = rp;
-    pinMode(resetPin, OUTPUT); 
-    digitalWrite(resetPin, HIGH);
+   
     SPI_Address = addr;
 }
 #endif
 
 bool MCP23017::Init(){
-    reset();
+    if(resetPin < 99){
+        pinMode(resetPin, OUTPUT); 
+        digitalWrite(resetPin, HIGH);
+        reset();
+    }
+    else{
+        softReset();
+    }
     setIntCon(0b10101010, A);
-    if(readMCP23017(INTCONA) != 0b10101010)
+    if(readMCP23017(INTCONA) != 0b10101010){
         return false;
+    }
+    intConA = 0b00000000;
+    setIntCon(intConA, A);
+    intConB = 0b00000000;
     ioConA = 0b00000000;
     ioConB = 0b00000000;
     ioDirA = 0b00000000;
     ioDirB = 0b00000000;
     gppuA = 0b00000000;
     gppuB = 0b00000000;
+    gpioA = 0b00000000;
+    gpioB = 0b00000000;
+    gpIntEnA = 0b00000000;
+    gpIntEnB = 0b00000000;
+    defValA = 0b00000000;
+    defValB = 0b00000000;
 #ifndef USE_TINY_WIRE_M_ 
     mySPISettings = SPISettings(8000000, MSBFIRST, SPI_MODE0); 
 #endif
-    setPortX(0b00000000, 0b00000000, A);
-    setPortX(0b00000000, 0b00000000, B);
-    setGpIntEn(0b00000000,A);
-    setGpIntEn(0b00000000,B);
-    setIoCon(ioConA, A);
-    setIoCon(ioConB, B);
-    setIntCon(0b00000000, A);
-    setIntCon(0b00000000, B);
-    setDefVal(0b00000000, A);
-    setDefVal(0b00000000, B);
     return true;
 };
 
@@ -553,6 +548,44 @@ void MCP23017::setSPIClockSpeed(unsigned long clock){
     mySPISettings = SPISettings(clock, MSBFIRST, SPI_MODE0);
 }
 #endif
+
+void MCP23017::softReset(){
+    setPortMode(0, A);
+    setPortMode(0, B);
+    uint8_t reg = 0x02;
+    if(!useSPI){
+#ifndef USE_TINY_WIRE_M_
+        _wire->beginTransmission(I2C_Address);
+        _wire->write(reg);
+        for(int8_t i=0; i<18; i++){
+            _wire->write(0x00);
+        }
+        _wire->endTransmission();
+#else
+        TinyWireM.beginTransmission(I2C_Address);
+        TinyWireM.send(reg);
+        for(int8_t i=0; i<18; i++){
+            TinyWireM.send(0x00);
+        }
+        TinyWireM.endTransmission();    
+#endif
+    }
+#ifndef USE_TINY_WIRE_M_    
+    else{
+        _spi->beginTransaction(mySPISettings);
+        digitalWrite(csPin, LOW);
+        uint16_t transBytes = ((SPI_Address<<1) << 8 | reg);
+        _spi->transfer16(transBytes); 
+        for(int8_t i=0; i<18; i++){
+            _spi->transfer(0x00);
+        }
+        digitalWrite(csPin, HIGH);
+        _spi->endTransaction();
+    }
+#endif
+}
+
+/* Private Functions */
 
 void MCP23017::setI2C_Address(int addr){
     I2C_Address = addr;

@@ -65,7 +65,6 @@ enum STATE {OFF, ON};
 
 class MCP23017{
     public:
-        MCP23017();
         MCP23017(int addr, int rp);
         MCP23017(int addr);
 #ifndef USE_TINY_WIRE_M_   
@@ -101,6 +100,7 @@ class MCP23017{
         uint8_t getPort(MCP_PORT);  
         uint8_t getIntCap(MCP_PORT);
         void setSPIClockSpeed(unsigned long clock); 
+        void softReset();
         
     private:
         void setI2C_Address(int);  
