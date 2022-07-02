@@ -5,7 +5,7 @@ Example sketch for the MCP23017 library
 The sketch shows the features for interrupts caused by deviation from
 the DEFVAL register. 
 
-Wiring can be found under the same name (png file) 
+The wiring for this example can be found under the same name (png file). 
 
 written by Wolfgang (Wolle) Ewald
 
@@ -16,6 +16,10 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 #include <Wire.h>
 #include <MCP23017.h>
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW)
+/* A hardware reset is performed during init(). If you want to save a pin you can define a dummy 
+ * reset pin >= 99 and connect the reset pin to HIGH. This will trigger a software reset instead 
+ * of a hardware reset. 
+ */
 #define RESET_PIN 5 
 int interruptPin = 3;
 volatile bool event = false;
