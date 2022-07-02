@@ -8,7 +8,7 @@ with SPI. All functions are the identical, except the constructors.
 The MCP23x18 ICs can deal with higher currents, but can only be used
 as sink.
 
-Wiring can be found under the same name (png file). 
+The wiring for this example can be found under the same name (png file). 
 
 written by Wolfgang (Wolle) Ewald
 https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
@@ -18,6 +18,10 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 #include <SPI.h>
 #include <MCP23S18.h>
 #define CS_PIN 7   // Chip Select Pin
+/* A hardware reset is performed during init(). If you want to save a pin you can define a dummy 
+ * reset pin >= 99 and connect the reset pin to HIGH. This will trigger a software reset instead 
+ * of a hardware reset. 
+ */
 #define RESET_PIN 5 
 #define MCP_SPI_CTRL_BYTE 0x20 // Do not change
 
