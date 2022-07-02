@@ -3,7 +3,8 @@
 Example sketch for the MCP23017 library
 
 The sketch shows the features for GPIO reading.
-Just attach external HIGH or LOW to the pins and see whats happening.  
+I have added a Fritzing scheme for this sketch. Press the push buttons
+and see what's happening.   
 
 Same wiring can be used as for the mcp23017_basic_input_output.ino 
 
@@ -14,8 +15,12 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 #include <Wire.h>
 #include <MCP23017.h>
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW)
-#define RESET_PIN 5  
 
+/* A hardware reset is performed during init(). If you want to save a pin you can define a dummy 
+ * pin >= 99 and connect the reset pin to HIGH. This will trigger a software reset instead of a 
+ * hardware reset. 
+ */
+#define RESET_PIN 5
 /* There are several ways to create your MCP23017 object:
  * MCP23017 myMCP = MCP23017(MCP_ADDRESS)            -> uses Wire / no reset pin (if not needed)
  * MCP23017 myMCP = MCP23017(MCP_ADDRESS, RESET_PIN)  -> uses Wire / RESET_PIN
@@ -36,24 +41,20 @@ void setup(){
     Serial.println("Not connected!");
     while(1){} 
   }  
-  myMCP.setPortMode(0b11111111, A);  // Port A: all pins are OUTPUT
-  myMCP.setPortMode(0b11111111, B);  // Port B: all pins are OUTPUT
-  myMCP.setPort(0b10010011,A);  // 
+  myMCP.setPortMode(0b00000000, A);  // Port A: all pins are INPUT
+  myMCP.setPortPullUp(0b11110000, A);  // Port A: Pin 4 - 7 are pulled up
 }
 
 void loop(){ 
-  portStatus = myMCP.getPort(A);
+  
+  portStatus = myMCP.getPort(A); // query the complete port status 
   Serial.print("Status GPIO A: ");
   Serial.println(portStatus, BIN);
-  pinStatus = myMCP.getPin(7, A);
-  Serial.print("Status Port A, Pin 7: ");
+  
+  pinStatus = myMCP.getPin(5, A); // query one pin status
+  Serial.print("Status Port A, Pin 5: ");
   Serial.println(pinStatus, BIN);
-  portStatus = myMCP.getPort(B);
-  Serial.print("Status GPIO B: ");
-  Serial.println(portStatus, BIN);
-  pinStatus = myMCP.getPin(0, B);
-  Serial.print("Status Port B, Pin 0: ");
-  Serial.println(pinStatus, BIN);
+ 
   Serial.println("-------------------------------------");
-  delay(5000);
+  delay(1000);
 } 
