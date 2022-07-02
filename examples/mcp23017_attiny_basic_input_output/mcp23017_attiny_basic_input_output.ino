@@ -21,6 +21,10 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 #include <TinyWireM.h>
 #include <MCP23017.h>
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW)
+/* A hardware reset is performed during init(). If you want to save a pin you can define a dummy 
+ * reset pin >= 99 and connect the reset pin to HIGH. This will trigger a software reset instead 
+ * of a hardware reset. 
+ */
 #define RESET_PIN 4 
 
 /* There are two ways to create your MCP23017 object:
