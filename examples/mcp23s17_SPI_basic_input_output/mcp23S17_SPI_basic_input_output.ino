@@ -10,7 +10,7 @@ the constructors.
 Although the MCP23S17 is SPI based you still have to select an 
 address! It allows you to use up to 8 MCP23S17 on the same CS-line.
 
-Wiring can be found under the same name (png file). 
+The wiring for this example can be found under the same name (png file). 
 
 written by Wolfgang (Wolle) Ewald
 https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
@@ -20,6 +20,10 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 #include <SPI.h>
 #include <MCP23S17.h>
 #define CS_PIN 7   // Chip Select Pin
+/* A hardware reset is performed during init(). If you want to save a pin you can define a dummy 
+ * reset pin >= 99 and connect the reset pin to HIGH. This will trigger a software reset instead 
+ * of a hardware reset. 
+ */
 #define RESET_PIN 5 
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW)
 
