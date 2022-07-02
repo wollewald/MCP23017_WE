@@ -7,7 +7,7 @@ This sketch shows how to use the MCP23017 with the TinyWireM library:
 https://github.com/adafruit/TinyWireM
 This allows you to run the MCP23017_WE library on an ATtiny85, for example.
 
-Wiring can be found under the same name (png file) 
+The wiring for this example can be found under the same name (png file). 
 
 written by Wolfgang (Wolle) Ewald
 https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
