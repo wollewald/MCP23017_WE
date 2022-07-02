@@ -3,10 +3,9 @@
 Example sketch for the MCP23017 library
 
 The sketch shows the features for GPIO reading.
+
 I have added a Fritzing scheme for this sketch. Press the push buttons
 and see what's happening.   
-
-Same wiring can be used as for the mcp23017_basic_input_output.ino 
 
 written by Wolfgang (Wolle) Ewald
 https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
