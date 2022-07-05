@@ -82,6 +82,10 @@ bool MCP23017::Init(){
     else{
         softReset();
     }
+    ioConA = 0b00001000;
+    ioConB = 0b00001000;
+    setIoCon(ioConA, A); // enable SPI hardware address
+    setIoCon(ioConB, B); // enable SPI hardware address
     setIntCon(0b10101010, A);
     if(readMCP23017(INTCONA) != 0b10101010){
         return false;
@@ -89,8 +93,7 @@ bool MCP23017::Init(){
     intConA = 0b00000000;
     setIntCon(intConA, A);
     intConB = 0b00000000;
-    ioConA = 0b00000000;
-    ioConB = 0b00000000;
+    
     ioDirA = 0b00000000;
     ioDirB = 0b00000000;
     gppuA = 0b00000000;
@@ -101,6 +104,7 @@ bool MCP23017::Init(){
     gpIntEnB = 0b00000000;
     defValA = 0b00000000;
     defValB = 0b00000000;
+    
 #ifndef USE_TINY_WIRE_M_ 
     mySPISettings = SPISettings(8000000, MSBFIRST, SPI_MODE0); 
 #endif
