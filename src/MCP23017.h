@@ -65,11 +65,9 @@ enum STATE {OFF, ON};
 
 class MCP23017{
     public:
-        MCP23017(int addr, int rp);
-        MCP23017(int addr);
+        MCP23017(int addr, int rp = 99);
 #ifndef USE_TINY_WIRE_M_   
-        MCP23017(TwoWire *w, int addr);
-        MCP23017(TwoWire *w, int addr, int rp);
+        MCP23017(TwoWire *w, int addr, int rp = 99);
         MCP23017(int cs, int rp, int addr);
         MCP23017(SPIClass *s, int cs, int rp, int addr);
 #endif
@@ -77,7 +75,7 @@ class MCP23017{
         void reset(); 
         void setPinMode(uint8_t, MCP_PORT, uint8_t); 
         void setPortMode(uint8_t, MCP_PORT);
-        void setPortMode(uint8_t val, MCP_PORT port, uint8_t pu);
+        void setPortMode(uint8_t val, MCP_PORT, uint8_t pu);
         void setPin(uint8_t, MCP_PORT, uint8_t); 
         void togglePin(uint8_t, MCP_PORT); 
         void setPinX(uint8_t, MCP_PORT, uint8_t, uint8_t); 
@@ -93,7 +91,8 @@ class MCP23017{
         void setInterruptOnDefValDevPort(uint8_t, MCP_PORT, uint8_t);
         void deleteAllInterruptsOnPort(MCP_PORT); 
         void setPinPullUp(uint8_t, MCP_PORT, uint8_t); 
-        void setPortPullUp(uint8_t, MCP_PORT); 
+        void setPortPullUp(uint8_t, MCP_PORT);
+        uint8_t getPortPullUp(MCP_PORT);
         void setIntMirror(uint8_t);
         uint8_t getIntFlag(MCP_PORT);
         bool getPin(uint8_t, MCP_PORT);
@@ -105,10 +104,14 @@ class MCP23017{
     private:
         void setI2C_Address(int);  
         void setResetPin(uint8_t);     
-        void setIoCon(uint8_t, MCP_PORT);  
-        void setGpIntEn(uint8_t, MCP_PORT);  
-        void setIntCon(uint8_t, MCP_PORT);   
-        void setDefVal(uint8_t, MCP_PORT);    
+        void setIoCon(uint8_t, MCP_PORT);
+        uint8_t getIoCon(MCP_PORT);
+        void setGpIntEn(uint8_t, MCP_PORT);
+        uint8_t getGpIntEn(MCP_PORT);
+        void setIntCon(uint8_t, MCP_PORT);
+        uint8_t getIntCon(MCP_PORT);
+        void setDefVal(uint8_t, MCP_PORT);
+        uint8_t getDefVal(MCP_PORT);
         void writeMCP23017(uint8_t, uint8_t);
         void writeMCP23017(uint8_t, uint8_t, uint8_t);
         uint8_t readMCP23017(uint8_t);
@@ -124,11 +127,6 @@ class MCP23017{
         bool useSPI;
         uint8_t ioDirA, ioDirB;
         uint8_t gpioA, gpioB;
-        uint8_t gpIntEnA, gpIntEnB;
-        uint8_t ioConA, ioConB;
-        uint8_t intConA, intConB;
-        uint8_t defValA, defValB;
-        uint8_t gppuA, gppuB;
 };
 
 #endif
