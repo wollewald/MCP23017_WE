@@ -64,9 +64,9 @@ void loop(){
     intCapReg = myMCP.getIntCap(B);
     Serial.println("Interrupt!");
     Serial.print("Interrupt Flag Register: ");
-    Serial.println(intFlagReg,BIN); 
+    Serial.println(intFlagReg, BIN); 
     Serial.print("Interrupt Capture Register: ");
-    Serial.println(intCapReg,BIN); 
+    Serial.println(intCapReg, BIN); 
     Serial.print("Pin No.");
     Serial.print(eventPin);
     Serial.print(" went ");
