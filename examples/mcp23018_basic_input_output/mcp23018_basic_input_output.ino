@@ -44,8 +44,8 @@ void setup(){
     while(1){} 
   } 
   delay(wT);
-  myMCP.setAllPins(A,LOW);            // Port A: all pins are LOW
-  myMCP.setAllPins(B,LOW);            // Port B: all pins are LOW
+  myMCP.setAllPins(A, LOW);            // Port A: all pins are LOW
+  myMCP.setAllPins(B, LOW);            // Port B: all pins are LOW
   myMCP.setPortMode(0b11111111, A);   // Port A: all pins are OUTPUT -> LEDs are on
   myMCP.setPortMode(0b11111111, B);   // Port B: all pins are OUTPUT
   delay(wT);
@@ -64,23 +64,23 @@ void setup(){
     myMCP.setPortMode(portModeValue, B);
     delay(wT);
   }
-  myMCP.setPortMode(0,A);           // Port A: all pins are INPUT
-  myMCP.setPortMode(0,B);           // Port B: all pins are INPUT 
+  myMCP.setPortMode(0, A);           // Port A: all pins are INPUT
+  myMCP.setPortMode(0, B);           // Port B: all pins are INPUT 
   delay(wT);
   myMCP.setPinMode(3, A, OUTPUT);          // Pin 3 / PORT A is OUTPUT/LOW
   myMCP.setPinMode(1, B, OUTPUT);          // Pin 1 / PORT B is OUTPUT/LOW
   delay(wT);
-  myMCP.setPortMode(0,A);           // Port A: all pins are INPUT
-  myMCP.setPortMode(0,B);           // Port B: all pins are INPUT
-  myMCP.setPinX(1,A,OUTPUT,LOW);    // A1 HIGH 
+  myMCP.setPortMode(0, A);           // Port A: all pins are INPUT
+  myMCP.setPortMode(0, B);           // Port B: all pins are INPUT
+  myMCP.setPinX(1, A, OUTPUT, LOW);    // A1 HIGH 
   delay(wT);
   myMCP.togglePin(1, A);             // A1 LOW
   delay(wT);
   myMCP.togglePin(1, A);             // A1 HIGH
   delay(wT); 
   // the following two lines are similar to setPinX(2,B,OUTPUT,LOW);
-  myMCP.setPinMode(2,B,OUTPUT);     // B2 is OUTPUT/LOW
-  myMCP.setPin(2,B,LOW);            // B2 is still OUTPUT/LOW
+  myMCP.setPinMode(2, B, OUTPUT);     // B2 is OUTPUT/LOW
+  myMCP.setPin(2, B, LOW);            // B2 is still OUTPUT/LOW
   delay(wT); 
   myMCP.setPortX(0b10001111,0b10000000,B); // B0-B4: OUTPUT/LOW, B7: OUTPUT, HIGH;
 }
