@@ -30,8 +30,8 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 /* There are two ways to create your MCP23S17 object:
  * MCP23S17 myMCP = MCP23S17(CS_PIN, RESET_PIN, MCP_ADDRESS);
  * MCP23S17 myMCP = MCP23S17(&SPI, CS_PIN, RESET_PIN, MCP_ADDRESS);
- * The second option allows you to create your own SPI objects,
- * e.g. in order to use two SPI interfaces on the ESP32.
+ * The second option allows you to pass SPI objects, e.g. in order 
+ * to use two SPI interfaces on the ESP32.
  */
  
 MCP23S17 myMCP = MCP23S17(CS_PIN, RESET_PIN, MCP_ADDRESS);
@@ -49,7 +49,7 @@ void setup(){
   myMCP.setPortMode(0b11111101, A);  // Port A: all pins are OUTPUT except pin 1
   myMCP.setPortMode(0b11111111, B);  // Port B: all pins are OUTPUT
   delay(wT);
-  myMCP.setAllPins(A, ON); // alle LEDs switched on except A1
+  myMCP.setAllPins(A, HIGH); // alle LEDs switched on except A1
   delay(wT);
   myMCP.setPinX(1, A, OUTPUT, HIGH); // A1 switched on 
   delay(wT); 
@@ -65,19 +65,19 @@ void setup(){
   delay(wT);
   myMCP.setPin(3, A, LOW); // A3 switched off
   delay(wT);
-  myMCP.setPortX(0b11110000, 0b01101111,B); // at port B only B5,B6 are switched on
+  myMCP.setPortX(0b11110000, 0b01101111, B); // at port B only B5,B6 are switched on
   delay(wT);
-  myMCP.setPinMode(0,B,OUTPUT); // B0 --> OUTPUT
+  myMCP.setPinMode(0, B, OUTPUT); // B0 --> OUTPUT
   for(int i=0; i<5; i++){  // B0 blinking
-    myMCP.togglePin(0,B); 
+    myMCP.togglePin(0, B); 
     delay(200);
-    myMCP.togglePin(0,B);
+    myMCP.togglePin(0, B);
     delay(200);
   }
   for(int i=0; i<5; i++){ // B7 blinking
-    myMCP.togglePin(7,B);
+    myMCP.togglePin(7, B);
     delay(200);
-    myMCP.togglePin(7,B);
+    myMCP.togglePin(7, B);
     delay(200);
   }
 }
