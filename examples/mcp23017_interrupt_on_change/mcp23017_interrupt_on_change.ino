@@ -42,7 +42,7 @@ void setup(){
   myMCP.setPortMode(0b11111111,A);
   myMCP.setPort(0b11111111, A); // just an LED test
   delay(1000); 
-  myMCP.setAllPins(A, OFF);
+  myMCP.setAllPins(A, LOW);
   delay(1000);
   myMCP.setInterruptPinPol(HIGH); // set INTA and INTB active-high
   delay(10);
