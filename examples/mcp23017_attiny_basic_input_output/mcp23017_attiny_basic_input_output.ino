@@ -50,27 +50,27 @@ void setup(){
   delay(wT);
   myMCP.setPort(0b01011110, A); // A0,A5,A7 switched off
   delay(wT);
-  myMCP.setPinX(0,B,OUTPUT,HIGH); // B0 switched on
+  myMCP.setPinX(0, B, OUTPUT, HIGH); // B0 switched on
   delay(wT);
-  myMCP.setPinX(4,B,OUTPUT,LOW); // B4 switched off
+  myMCP.setPinX(4, B, OUTPUT, LOW); // B4 switched off
   delay(wT);
   myMCP.setAllPins(A, HIGH); // A0 - A7 all on
   delay(wT);
   myMCP.setPin(3, A, LOW); // A3 switched off
   delay(wT);
-  myMCP.setPortX(0b11110000, 0b01101111,B); // at port B only B5,B6 are switched on
+  myMCP.setPortX(0b11110000, 0b01101111, B); // at port B only B5,B6 are switched on
   delay(wT);
-  myMCP.setPinMode(0,B,OUTPUT); // B0 --> OUTPUT
+  myMCP.setPinMode(0, B, OUTPUT); // B0 --> OUTPUT
   for(int i=0; i<5; i++){  // B0 blinking
-    myMCP.togglePin(0,B); 
+    myMCP.togglePin(0, B); 
     delay(200);
-    myMCP.togglePin(0,B);
+    myMCP.togglePin(0, B);
     delay(200);
   }
   for(int i=0; i<5; i++){ // B7 blinking
-    myMCP.togglePin(7,B);
+    myMCP.togglePin(7, B);
     delay(200);
-    myMCP.togglePin(7,B);
+    myMCP.togglePin(7, B);
     delay(200);
   }
 }
