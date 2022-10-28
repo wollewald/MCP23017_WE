@@ -36,82 +36,87 @@ https://wolles-elektronikkiste.de/portexpander-mcp23017       (German)
 #endif
 
 
-#define IODIRA      0x00   
-#define IODIRB      0x01 
-#define IOCONA      0x0A   
-#define IOCONB      0x0B  
-#define INTCAPA     0x10  
-#define INTCAPB     0x11  
-#define INTCONA     0x08  
-#define INTCONB     0x09  
-#define INTFA       0x0E    
-#define INTFB       0x0F
-#define GPINTENA    0x04 
-#define GPINTENB    0x05
-#define DEFVALA     0x06  
-#define DEFVALB     0x07
-#define IPOLA       0x02   
-#define GPIOA       0x12    
-#define GPIOB       0x13
-#define INTPOL      1    
-#define INTODR      2
-#define MIRROR      6    
-#define GPPUA       0x0C  
-#define GPPUB       0x0D
-#define SPI_READ    0x01
-
-enum MCP_PORT {A, B};
-enum STATE {OFF, ON};
+typedef enum MCP_PORT {A, B} mcp_port;
+typedef enum MCP_ENABLE {OFF, ON} mcp_enable;
 
 class MCP23017{
     public:
-        MCP23017(int addr, int rp = 99);
-#ifndef USE_TINY_WIRE_M_   
-        MCP23017(TwoWire *w, int addr, int rp = 99);
-        MCP23017(int cs, int rp, int addr);
-        MCP23017(SPIClass *s, int cs, int rp, int addr);
+        /* Registers */
+        static constexpr uint8_t IODIRA  {0x00};  
+        static constexpr uint8_t IODIRB  {0x01}; 
+        static constexpr uint8_t IOCONA  {0x0A}; 
+        static constexpr uint8_t IOCONB  {0x0B};
+        static constexpr uint8_t INTCAPA {0x10};
+        static constexpr uint8_t INTCAPB {0x11};
+        static constexpr uint8_t INTCONA {0x08};
+        static constexpr uint8_t INTCONB {0x09};
+        static constexpr uint8_t INTFA   {0x0E};  
+        static constexpr uint8_t INTFB   {0x0F};
+        static constexpr uint8_t GPINTENA{0x04};
+        static constexpr uint8_t GPINTENB{0x05};
+        static constexpr uint8_t DEFVALA {0x06};
+        static constexpr uint8_t DEFVALB {0x07};
+        static constexpr uint8_t IPOLA   {0x02}; 
+        static constexpr uint8_t GPIOA   {0x12};  
+        static constexpr uint8_t GPIOB   {0x13};
+        static constexpr uint8_t INTPOL  {0x01};  
+        static constexpr uint8_t INTODR  {0x02};
+        static constexpr uint8_t MIRROR  {0x06};  
+        static constexpr uint8_t GPPUA   {0x0C};
+        static constexpr uint8_t GPPUB   {0x0D};
+        static constexpr uint8_t SPI_READ{0x01};
+
+        /* constructors */
+#ifndef USE_TINY_WIRE_M_
+        MCP23017(uint8_t addr, uint8_t rp = 99) : _wire{&Wire}, I2C_Address{addr}, resetPin{rp}, useSPI{false} {}
+        MCP23017(TwoWire *w, uint8_t addr, uint8_t rp = 99) : _wire{w}, I2C_Address{addr}, resetPin{rp}, useSPI{false} {}
+        MCP23017(uint8_t cs, uint8_t rp, uint8_t addr) : SPI_Address{addr}, resetPin{rp}, csPin{cs}, useSPI{true} {}
+        MCP23017(SPIClass *s, uint8_t cs, uint8_t rp, uint8_t addr) : _spi{s}, SPI_Address{addr}, resetPin{rp}, csPin{cs}, useSPI{true} {}
+#else
+        MCP23017(uint8_t addr, uint8_t rp) : I2C_Address{addr}, resetPin{rp}, useSPI{false} {}
 #endif
+        
+        /* Public functions */
         bool Init();
         void reset(); 
-        void setPinMode(uint8_t, MCP_PORT, uint8_t); 
-        void setPortMode(uint8_t, MCP_PORT);
-        void setPortMode(uint8_t val, MCP_PORT, uint8_t pu);
-        void setPin(uint8_t, MCP_PORT, uint8_t); 
-        void togglePin(uint8_t, MCP_PORT); 
-        void setPinX(uint8_t, MCP_PORT, uint8_t, uint8_t); 
-        void setAllPins(MCP_PORT, uint8_t); 
-        void setPort(uint8_t, MCP_PORT);    
+        void setPinMode(uint8_t, mcp_port, uint8_t); 
+        void setPortMode(uint8_t, mcp_port);
+        void setPortMode(uint8_t val, mcp_port, uint8_t pu);
+        void setPin(uint8_t, mcp_port, uint8_t); 
+        void togglePin(uint8_t, mcp_port); 
+        void setPinX(uint8_t, mcp_port, uint8_t, uint8_t); 
+        void setAllPins(mcp_port, uint8_t); 
+        void setPort(uint8_t, mcp_port);    
         void setPort(uint8_t, uint8_t); 
-        void setPortX(uint8_t, uint8_t, MCP_PORT); 
+        void setPortX(uint8_t, uint8_t, mcp_port); 
         void setInterruptPinPol(uint8_t); 
         void setIntOdr(uint8_t);  
-        void setInterruptOnChangePin(uint8_t, MCP_PORT); 
-        void setInterruptOnDefValDevPin(uint8_t, MCP_PORT, uint8_t);  
-        void setInterruptOnChangePort(uint8_t, MCP_PORT); 
-        void setInterruptOnDefValDevPort(uint8_t, MCP_PORT, uint8_t);
-        void deleteAllInterruptsOnPort(MCP_PORT); 
-        void setPinPullUp(uint8_t, MCP_PORT, uint8_t); 
-        void setPortPullUp(uint8_t, MCP_PORT);
-        uint8_t getPortPullUp(MCP_PORT);
+        void setInterruptOnChangePin(uint8_t, mcp_port); 
+        void setInterruptOnDefValDevPin(uint8_t, mcp_port, uint8_t);  
+        void setInterruptOnChangePort(uint8_t, mcp_port); 
+        void setInterruptOnDefValDevPort(uint8_t, mcp_port, uint8_t);
+        void deleteAllInterruptsOnPort(mcp_port); 
+        void setPinPullUp(uint8_t, mcp_port, uint8_t); 
+        void setPortPullUp(uint8_t, mcp_port);
+        uint8_t getPortPullUp(mcp_port);
         void setIntMirror(uint8_t);
-        uint8_t getIntFlag(MCP_PORT);
-        bool getPin(uint8_t, MCP_PORT);
-        uint8_t getPort(MCP_PORT);  
-        uint8_t getIntCap(MCP_PORT);
+        uint8_t getIntFlag(mcp_port);
+        bool getPin(uint8_t, mcp_port);
+        uint8_t getPort(mcp_port);  
+        uint8_t getIntCap(mcp_port);
         void setSPIClockSpeed(unsigned long clock); 
         void softReset();
         
-    private:
-        void setI2C_Address(int);  
+    protected:
         void setResetPin(uint8_t);     
-        void setIoCon(uint8_t, MCP_PORT);
-        uint8_t getIoCon(MCP_PORT);
-        void setGpIntEn(uint8_t, MCP_PORT);
-        uint8_t getGpIntEn(MCP_PORT);
-        void setIntCon(uint8_t, MCP_PORT);
-        uint8_t getIntCon(MCP_PORT);
-        void setDefVal(uint8_t, MCP_PORT);
-        uint8_t getDefVal(MCP_PORT);
+        void setIoCon(uint8_t, mcp_port);
+        uint8_t getIoCon(mcp_port);
+        void setGpIntEn(uint8_t, mcp_port);
+        uint8_t getGpIntEn(mcp_port);
+        void setIntCon(uint8_t, mcp_port);
+        uint8_t getIntCon(mcp_port);
+        void setDefVal(uint8_t, mcp_port);
+        uint8_t getDefVal(mcp_port);
         void writeMCP23017(uint8_t, uint8_t);
         void writeMCP23017(uint8_t, uint8_t, uint8_t);
         uint8_t readMCP23017(uint8_t);
@@ -120,10 +125,10 @@ class MCP23017{
         SPIClass *_spi;
         SPISettings mySPISettings;
 #endif
-    int I2C_Address;
-        int SPI_Address;
-        int resetPin;
-        int csPin;
+        uint8_t I2C_Address;
+        uint8_t SPI_Address;
+        uint8_t resetPin;
+        uint8_t csPin;
         bool useSPI;
         uint8_t ioDirA, ioDirB;
         uint8_t gpioA, gpioB;
