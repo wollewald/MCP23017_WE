@@ -21,11 +21,10 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
  */
 #define RESET_PIN 5
 /* There are several ways to create your MCP23017 object:
- * MCP23017 myMCP = MCP23017(MCP_ADDRESS)            -> uses Wire / no reset pin (if not needed)
- * MCP23017 myMCP = MCP23017(MCP_ADDRESS, RESET_PIN)  -> uses Wire / RESET_PIN
- * MCP23017 myMCP = MCP23017(&wire2, MCP_ADDRESS)    -> uses the TwoWire object wire2 / no reset pin
- * MCP23017 myMCP = MCP23017(&wire2, MCP_ADDRESS, RESET_PIN) -> all together
- * Successfully tested with two I2C busses on an ESP32
+ * MCP23017 myMCP = MCP23017(MCP_ADDRESS) -> uses Wire / no reset pin 
+ * MCP23017 myMCP = MCP23017(MCP_ADDRESS, RESET_PIN) -> uses Wire / RESET_PIN
+ * MCP23017 myMCP = MCP23017(&Wire, MCP_ADDRESS) -> passing a TwoWire object / no reset pin
+ * MCP23017 myMCP = MCP23017(&Wire, MCP_ADDRESS, RESET_PIN) -> "all together"
  */
 MCP23017 myMCP = MCP23017(MCP_ADDRESS, RESET_PIN);
 
