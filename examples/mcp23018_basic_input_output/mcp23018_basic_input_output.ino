@@ -82,7 +82,7 @@ void setup(){
   myMCP.setPinMode(2, B, OUTPUT);     // B2 is OUTPUT/LOW
   myMCP.setPin(2, B, LOW);            // B2 is still OUTPUT/LOW
   delay(wT); 
-  myMCP.setPortX(0b10001111,0b10000000,B); // B0-B4: OUTPUT/LOW, B7: OUTPUT, HIGH;
+  myMCP.setPortX(0b10001111, 0b10000000, B); // B0-B4: OUTPUT/LOW, B7: OUTPUT, HIGH;
 }
 
 void loop(){ 
