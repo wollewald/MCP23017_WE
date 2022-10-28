@@ -42,7 +42,7 @@ void setup(){
   myMCP.setPortMode(0b11111101, A);  // Port A: all pins are OUTPUT except pin 1
   myMCP.setPortMode(0b11111111, B);  // Port B: all pins are OUTPUT
   delay(wT);
-  myMCP.setAllPins(A, ON); // alle LEDs switched on except A1
+  myMCP.setAllPins(A, HIGH); // alle LEDs switched on except A1
   delay(wT);
   myMCP.setPinX(1, A, OUTPUT, HIGH); // A1 switched on 
   delay(wT); 
