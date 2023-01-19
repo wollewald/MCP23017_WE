@@ -20,7 +20,6 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 #define RESET_PIN 5  
 int interruptPin = 3;
 volatile bool event; 
-byte intCapReg; 
 
 /* There are several ways to create your MCP23017 object:
  * MCP23017 myMCP = MCP23017(MCP_ADDRESS) -> uses Wire / no reset pin 
@@ -47,17 +46,16 @@ void setup(){
   myMCP.setInterruptPinPol(HIGH); // set INTA and INTB active-high
   delay(10);
   myMCP.setInterruptOnChangePort(0b11111111, B); //set all B pins as interrrupt Pins
+  delay(10);
+  myMCP.getIntCap(B); // ensures that existing interrupts are cleared
   event=false;
 }  
 
 void loop(){ 
-  intCapReg = myMCP.getIntCap(B); // ensures that existing interrupts are cleared
   if(event){
-    delay(200);
-    byte intFlagReg, eventPin; 
-    intFlagReg = myMCP.getIntFlag(B);
-    eventPin = log(intFlagReg)/log(2);
-    intCapReg = myMCP.getIntCap(B);
+    byte intFlagReg = myMCP.getIntFlag(B);
+    byte eventPin = log(intFlagReg)/log(2);
+    byte intCapReg = myMCP.getIntCap(B);
     Serial.println("Interrupt!");
     Serial.print("Interrupt Flag Register: ");
     Serial.println(intFlagReg, BIN); 
@@ -73,7 +71,8 @@ void loop(){
       Serial.println("HIGH");
     }
     myMCP.setPort(intFlagReg, A);
-    //delay(1000);
+    delay(200);
+    intCapReg = myMCP.getIntCap(B);
     event = false; 
   }
 }
