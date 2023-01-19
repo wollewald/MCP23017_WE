@@ -1,19 +1,21 @@
 /*****************************************
-This is a library for the MCP23017 and MCP23S17 I/O Port Expander
+This is a library for the MCP23017/MCP23S17/MCP23018/MCP23S18 I/O Port Expander.
 
-This specific header file is just for introducing the class name MCP23S17. It inherits 
+This specific header file is just for introducing the class name MCP23S18. It inherits 
 everything from MCP23017, including the constructors. 
 
 You'll find some examples including the wiring which should enable you to use the library. 
 Furthermore I have added a list of commands.
 
-You are free to use it, change it or build on it. In case you like it, it would be cool 
-if you give it a star.
+LICENSE: MIT (https://github.com/wollewald/MCP23017_WE/blob/master/LICENSE)
 
-If you find bugs, please inform me!
+In case you like it, it would be cool if you give it a star.
+
+If you find bugs, don't hesitate to raise an issue!
 
 Written by Wolfgang (Wolle) Ewald
-https://wolles-elektronikkiste.de/port-expander-mcp23017-2?lang=en
+https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2 (English)
+https://wolles-elektronikkiste.de/portexpander-mcp23017       (German)
 
 *******************************************/
 
