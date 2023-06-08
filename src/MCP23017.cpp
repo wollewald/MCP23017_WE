@@ -22,14 +22,14 @@ bool MCP23017::Init(){
         pinMode(csPin, OUTPUT);
         digitalWrite(csPin, HIGH);
     }
-    if(resetPin < 99){
+    
+    if(resetPin < 99){ 
         pinMode(resetPin, OUTPUT); 
         digitalWrite(resetPin, HIGH);
-        reset();
     }
-    else{
-        softReset();
-    }
+    
+    softReset();
+    
     setIoCon(0b00001000, A); // enable SPI hardware address
     setIoCon(0b00001000, B); // enable SPI hardware address
     setIntCon(0b10101010, A);
