@@ -532,6 +532,119 @@ void MCP23017::softReset(){
 #endif
 }
 
+#ifdef DEBUG_MCP23017   // see MCP23017_config.h
+void MCP23017::printAllRegisters(){
+    uint8_t reg = 0;
+    uint8_t regVal = 0;
+    char buf[20] = {};
+    
+    Serial.println(F("Register status:"));
+    
+    regVal = readMCP23017(reg); regVal = ~regVal; reg++;
+    sprintf(buf, "IODIRA  : 0x%02X | 0b", regVal); 
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); regVal = ~regVal; reg++;
+    sprintf(buf, "IODIRB  : 0x%02X | 0b", regVal); 
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "IPOLA   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "IPOLB   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "GPINTENA: 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "GPINTENB: 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "DEFVALA : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "DEFVALB : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "INTCONA : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "INTCONB : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "IOCONA  : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "IOCONB  : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "GPPUA   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "GPPUB   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "INTFA   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "INTFB   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "INTCAPA : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "INTCAPB : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "GPIOA   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "GPIOB   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "OLATA   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+    
+    regVal = readMCP23017(reg); reg++;
+    sprintf(buf, "OLATB   : 0x%02X | 0b", regVal);
+    Serial.print(buf); printBin(regVal);
+}
+
+void MCP23017::printBin(uint8_t val){
+    uint8_t valCopy = val;
+    uint8_t proceedingZeros = 0;
+    
+    while(!(valCopy & 0x80) && proceedingZeros < 7){
+        valCopy = valCopy << 1;
+        proceedingZeros++;
+    }
+    
+    for(int i=0; i<proceedingZeros; i++){
+        Serial.print("0");
+    }
+    Serial.println(val, BIN);   
+}
+#endif // DEBUG_MCP23017 
+
 /* Private Functions */
 
 void MCP23017::setResetPin(uint8_t rp){

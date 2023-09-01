@@ -106,6 +106,10 @@ class MCP23017{
         uint8_t getIntCap(mcp_port);
         void setSPIClockSpeed(unsigned long clock); 
         void softReset();
+#ifdef DEBUG_MCP23017  // see MCP23017_config.h
+        void printAllRegisters();
+        void printBin(uint8_t val);
+#endif
         
     protected:
         void setResetPin(uint8_t);     
