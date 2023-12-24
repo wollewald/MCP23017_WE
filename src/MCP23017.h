@@ -106,6 +106,7 @@ class MCP23017{
         uint8_t getIntCap(mcp_port);
         void setSPIClockSpeed(unsigned long clock); 
         void softReset();
+        uint8_t i2cConnectionError();
 #ifdef DEBUG_MCP23017  // see MCP23017_config.h
         void printAllRegisters();
         void printBin(uint8_t val);
