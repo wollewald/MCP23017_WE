@@ -645,6 +645,21 @@ void MCP23017::printBin(uint8_t val){
 }
 #endif // DEBUG_MCP23017 
 
+
+uint8_t MCP23017::i2cConnectionError(){
+	uint8_t error = 0;
+    if(!useSPI){
+#ifndef USE_TINY_WIRE_M_
+        _wire->beginTransmission(I2C_Address);
+        error = _wire->endTransmission();
+#else
+        TinyWireM.beginTransmission(I2C_Address);
+        error = TinyWireM.endTransmission();    
+#endif
+    }
+	return error;
+}
+
 /* Private Functions */
 
 void MCP23017::setResetPin(uint8_t rp){
