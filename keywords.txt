@@ -48,6 +48,7 @@ getPort	KEYWORD2
 getIntCap	KEYWORD2
 setSPIClockSpeed	KEYWORD2
 printAllRegisters	KEYWORD2
+i2cConnectionError	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
