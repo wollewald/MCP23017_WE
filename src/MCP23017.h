@@ -42,29 +42,29 @@ typedef enum MCP_ENABLE {OFF, ON} mcp_enable;
 class MCP23017{
     public:
         /* Registers */
-        static constexpr uint8_t IODIRA  {0x00};  
-        static constexpr uint8_t IODIRB  {0x01}; 
-        static constexpr uint8_t IOCONA  {0x0A}; 
-        static constexpr uint8_t IOCONB  {0x0B};
-        static constexpr uint8_t INTCAPA {0x10};
-        static constexpr uint8_t INTCAPB {0x11};
-        static constexpr uint8_t INTCONA {0x08};
-        static constexpr uint8_t INTCONB {0x09};
-        static constexpr uint8_t INTFA   {0x0E};  
-        static constexpr uint8_t INTFB   {0x0F};
-        static constexpr uint8_t GPINTENA{0x04};
-        static constexpr uint8_t GPINTENB{0x05};
-        static constexpr uint8_t DEFVALA {0x06};
-        static constexpr uint8_t DEFVALB {0x07};
-        static constexpr uint8_t IPOLA   {0x02}; 
-        static constexpr uint8_t GPIOA   {0x12};  
-        static constexpr uint8_t GPIOB   {0x13};
-        static constexpr uint8_t INTPOL  {0x01};  
-        static constexpr uint8_t INTODR  {0x02};
-        static constexpr uint8_t MIRROR  {0x06};  
-        static constexpr uint8_t GPPUA   {0x0C};
-        static constexpr uint8_t GPPUB   {0x0D};
-        static constexpr uint8_t SPI_READ{0x01};
+        static constexpr uint8_t IODIRA   {0x00};  
+        static constexpr uint8_t IODIRB   {0x01}; 
+        static constexpr uint8_t IOCONA   {0x0A}; 
+        static constexpr uint8_t IOCONB   {0x0B};
+        static constexpr uint8_t INTCAPA  {0x10};
+        static constexpr uint8_t INTCAPB  {0x11};
+        static constexpr uint8_t INTCONA  {0x08};
+        static constexpr uint8_t INTCONB  {0x09};
+        static constexpr uint8_t INTFA    {0x0E};  
+        static constexpr uint8_t INTFB    {0x0F};
+        static constexpr uint8_t GPINTENA {0x04};
+        static constexpr uint8_t GPINTENB {0x05};
+        static constexpr uint8_t DEFVALA  {0x06};
+        static constexpr uint8_t DEFVALB  {0x07};
+        static constexpr uint8_t IPOLA    {0x02}; 
+        static constexpr uint8_t MCP_GPIOA{0x12};  
+        static constexpr uint8_t MCP_GPIOB{0x13};
+        static constexpr uint8_t INTPOL   {0x01};  
+        static constexpr uint8_t INTODR   {0x02};
+        static constexpr uint8_t MIRROR   {0x06};  
+        static constexpr uint8_t GPPUA    {0x0C};
+        static constexpr uint8_t GPPUB    {0x0D};
+        static constexpr uint8_t SPI_READ {0x01};
 
         /* constructors */
 #ifndef USE_TINY_WIRE_M_
