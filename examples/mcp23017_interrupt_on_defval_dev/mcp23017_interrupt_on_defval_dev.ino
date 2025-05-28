@@ -56,7 +56,7 @@ void setup(){
 }  
 
 void loop(){ 
-  myMCP.getIntCap(B);
+  //myMCP.getIntCap(B); // bouncing can lead to issues - uncommenting this line can help 
   if(event){
     byte intFlagReg = myMCP.getIntFlag(B);
     byte eventPin = log(intFlagReg)/log(2);
