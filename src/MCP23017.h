@@ -68,7 +68,7 @@ class MCP23017{
 
         /* constructors */
 #ifndef USE_TINY_WIRE_M_
-        MCP23017(uint8_t addr, uint8_t rp = 99) : _wire{&Wire}, I2C_Address{addr}, resetPin{rp}, useSPI{false} {}
+        MCP23017(uint8_t addr = 0x20, uint8_t rp = 99) : _wire{&Wire}, I2C_Address{addr}, resetPin{rp}, useSPI{false} {}
         MCP23017(TwoWire *w, uint8_t addr, uint8_t rp = 99) : _wire{w}, I2C_Address{addr}, resetPin{rp}, useSPI{false} {}
         MCP23017(uint8_t cs, uint8_t rp, uint8_t addr) : _spi{&SPI}, SPI_Address{addr}, resetPin{rp}, csPin{cs}, useSPI{true} {}
         MCP23017(SPIClass *s, uint8_t cs, uint8_t rp, uint8_t addr) : _spi{s}, SPI_Address{addr}, resetPin{rp}, csPin{cs}, useSPI{true} {}
@@ -140,4 +140,5 @@ class MCP23017{
 };
 
 #endif
+
 
