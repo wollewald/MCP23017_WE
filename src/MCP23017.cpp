@@ -380,6 +380,15 @@ void MCP23017::setInterruptOnDefValDevPort(uint8_t intPins, mcp_port port, uint8
     }
 }
 
+void MCP23017::setIpol(uint8_t ipol, mcp_port port){
+	if(port==A){
+		writeMCP23017(IPOLA, ipol);
+	}
+	else if (port==B){
+		writeMCP23017(IPOLB, ipol);
+	}
+}	
+
 void MCP23017::deleteAllInterruptsOnPort(mcp_port port){
     if(port==A){
         writeMCP23017(GPINTENA, 0);

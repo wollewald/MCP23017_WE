@@ -56,7 +56,8 @@ class MCP23017{
         static constexpr uint8_t GPINTENB {0x05};
         static constexpr uint8_t DEFVALA  {0x06};
         static constexpr uint8_t DEFVALB  {0x07};
-        static constexpr uint8_t IPOLA    {0x02}; 
+        static constexpr uint8_t IPOLA    {0x02};
+		static constexpr uint8_t IPOLB    {0x03};
         static constexpr uint8_t MCP_GPIOA{0x12};  
         static constexpr uint8_t MCP_GPIOB{0x13};
         static constexpr uint8_t INTPOL   {0x01};  
@@ -95,6 +96,7 @@ class MCP23017{
         void setInterruptOnDefValDevPin(uint8_t, mcp_port, uint8_t);  
         void setInterruptOnChangePort(uint8_t, mcp_port); 
         void setInterruptOnDefValDevPort(uint8_t, mcp_port, uint8_t);
+		void setIpol(uint8_t, mcp_port);
         void deleteAllInterruptsOnPort(mcp_port); 
         void setPinPullUp(uint8_t, mcp_port, uint8_t); 
         void setPortPullUp(uint8_t, mcp_port);
