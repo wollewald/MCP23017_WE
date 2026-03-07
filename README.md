@@ -31,3 +31,12 @@ You can find more information about my library here:
 http://wolles-elektronikkiste.de/portexpander-mcp23017 (German)
 
 https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2 (English)
+
+<h2>Breaking changes in version 2.0.0</h2>
+Version 2.0.0 includes many changes. Unfortunately, two of them are not compatible with older versions:
+
+* I have renamed the classes MCP23017, MCP23S17, MCP23018 and MCP23S18 to MCP23017_WE, MCP23S17_WE, MCP23018_WE and MCP23S18_WE. I did this because too often users contacted me because of name collisions with other MCP23017 libraries. 
+
+* I had defined the MCP23017 ports as enums and named them "A" and "B". This is also a high risk with regards to name collisions. I have therefore put the enum definitions into the class. Accordingly you need to preceed the names with the class name, e.g. MCP23017_WE::A.
+
+I am sorry for the inconvenience. The example sketches are updated.
