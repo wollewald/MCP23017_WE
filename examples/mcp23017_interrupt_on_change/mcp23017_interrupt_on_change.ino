@@ -11,7 +11,7 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 
 *******************************************************/
 #include <Wire.h>
-#include <MCP23017.h>
+#include <MCP23017_WE.h>
 #define MCP_ADDRESS 0x20 // (A2/A1/A0 = LOW)
 /* A hardware reset is performed during init(). If you want to save a pin you can define a dummy 
  * reset pin >= 99 and connect the reset pin to HIGH. This will trigger a software reset instead 
@@ -21,13 +21,17 @@ https://wolles-elektronikkiste.de/en/port-expander-mcp23017-2
 int interruptPin = 3;
 volatile bool event; 
 
+typedef MCP23017_WE MCP; // just for less typing!
+
 /* There are several ways to create your MCP23017 object:
- * MCP23017 myMCP = MCP23017(MCP_ADDRESS) -> uses Wire / no reset pin 
- * MCP23017 myMCP = MCP23017(MCP_ADDRESS, RESET_PIN) -> uses Wire / RESET_PIN
- * MCP23017 myMCP = MCP23017(&Wire, MCP_ADDRESS) -> passing a TwoWire object / no reset pin
- * MCP23017 myMCP = MCP23017(&Wire, MCP_ADDRESS, RESET_PIN) -> "all together"
+ * MCP23017_WE myMCP = MCP23017_WE(MCP_ADDRESS) -> uses Wire / no reset pin 
+ * MCP23017_WE myMCP = MCP23017_WE(MCP_ADDRESS, RESET_PIN) -> uses Wire / RESET_PIN
+ * MCP23017_WE myMCP = MCP23017_WE(&Wire, MCP_ADDRESS) -> passing a TwoWire object / no reset pin
+ * MCP23017_WE myMCP = MCP23017_WE(&Wire, MCP_ADDRESS, RESET_PIN) -> "all together"
  */
-MCP23017 myMCP = MCP23017(MCP_ADDRESS, RESET_PIN);
+MCP myMCP = MCP(MCP_ADDRESS, RESET_PIN); // short version
+// MCP23017_WE myMCP = MCP23017_WE(MCP_ADDRESS, RESET_PIN); // long version
+
 
 void setup(){ 
   pinMode(interruptPin, INPUT);
@@ -38,24 +42,24 @@ void setup(){
     Serial.println("Not connected!");
     while(1){} 
   } 
-  myMCP.setPortMode(0b11111111,A);
-  myMCP.setPort(0b11111111, A); // just an LED test
+  myMCP.setPortMode(0b11111111, MCP::A);
+  myMCP.setPort(0b11111111, MCP::A); // just an LED test
   delay(1000); 
-  myMCP.setAllPins(A, LOW);
+  myMCP.setAllPins(MCP::A, LOW);
   delay(1000);
   myMCP.setInterruptPinPol(HIGH); // set INTA and INTB active-high
   delay(10);
-  myMCP.setInterruptOnChangePort(0b11111111, B); //set all B pins as interrrupt Pins
+  myMCP.setInterruptOnChangePort(0b11111111, MCP::B); //set all B pins as interrrupt Pins
   delay(10);
-  myMCP.getIntCap(B); // ensures that existing interrupts are cleared
+  myMCP.getIntCap(MCP::B); // ensures that existing interrupts are cleared
   event=false;
 }  
 
 void loop(){ 
   if(event){
-    byte intFlagReg = myMCP.getIntFlag(B);
+    byte intFlagReg = myMCP.getIntFlag(MCP::B);
     byte eventPin = log(intFlagReg)/log(2);
-    byte intCapReg = myMCP.getIntCap(B);
+    byte intCapReg = myMCP.getIntCap(MCP::B);
     Serial.println("Interrupt!");
     Serial.print("Interrupt Flag Register: ");
     Serial.println(intFlagReg, BIN); 
@@ -70,9 +74,9 @@ void loop(){
     else{
       Serial.println("HIGH");
     }
-    myMCP.setPort(intFlagReg, A);
+    myMCP.setPort(intFlagReg, MCP::A);
     delay(200);
-    intCapReg = myMCP.getIntCap(B);
+    intCapReg = myMCP.getIntCap(MCP::B);
     event = false; 
   }
 }
